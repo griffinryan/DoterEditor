@@ -1,0 +1,190 @@
+plugins {
+	id 'java'
+	id 'application'
+	id 'org.openjfx.javafxplugin' version '0.0.10'
+	id 'org.beryx.jlink' version '2.24.1'
+	id 'idea'
+	id 'antlr'
+	id "it.tellnet.sass" version "1.2"
+	id "com.github.johnrengelman.shadow" version "4.0.2"
+}
+
+group 'com.griffinryan.doter'
+version '0.0.1'
+
+description 'Doter Text Editor by Griffin Ryan'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+	maven { url 'https://jitpack.io' }
+	maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+}
+
+ext {
+	junitVersion = '5.8.1'
+	javaMainClass = "com.griffinryan.doter.HelloApplication"
+}
+
+sass {
+	sassDir = 'src/main/resources'
+	cssDir = 'src/main/resources'
+}
+
+mainClassName = 'com.griffinryan.doter.main.HelloApplication'
+sourceCompatibility = '16'
+targetCompatibility = '16'
+
+manifest {
+	attributes("Main-Class": "com.griffinryan.doter.main.HelloApplication")
+	attributes("SplashScreen-Image": "splash/splash-full.png")
+}
+
+
+jar {
+	archiveBaseName = 'doter'
+	archiveVersion =  '0.0.1'
+}
+
+
+configurations {
+	javafxCompile
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+application {
+	mainClass = 'com.griffinryan.doter.HelloApplication'
+}
+
+javafx {
+	version = '16'
+	modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+}
+
+dependencies {
+	implementation 'com.google.apis:google-api-services-oauth2:v2-rev131-1.23.0_1'
+	implementation 'com.google.http-client:google-http-client-jackson2:1.23.0'
+	implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+
+	implementation 'com.google.firebase:firebase-admin:6.8.1'
+
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+	implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+
+	implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
+	implementation('org.controlsfx:controlsfx:11.1.0')
+	implementation('com.dlsc.formsfx:formsfx-core:11.3.2') {
+		exclude(group: 'org.openjfx')
+	}
+	implementation('org.kordamp.ikonli:ikonli-javafx:12.2.0')
+	implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
+	implementation('eu.hansolo:tilesfx:11.48') {
+		exclude(group: 'org.openjfx')
+	}
+
+	implementation 'com.intellij:forms_rt:7.0.3'
+
+	implementation 'com.github.MSPaintIDE:JFoenix:9.0.8-J12-jitpack'
+	implementation 'com.google.code.gson:gson:2.8.5'
+	implementation 'com.uddernetworks.newocr:NewOCR:2.0.0'
+	// implementation 'org.apache.xmlgraphics:batik-rasterizer:1.10'
+	implementation 'org.ocpsoft.prettytime:prettytime:4.0.2.Final'
+	implementation 'net.java.dev.jna:jna:5.2.0'
+	implementation 'commons-codec:commons-codec:1.15'
+	implementation 'org.apache.commons:commons-math3:3.6.1'
+	implementation 'org.apache.commons:commons-compress:1.18'
+
+	implementation 'org.gradle:gradle-tooling-api:4.10.2'
+
+	implementation 'org.slf4j:slf4j-api:1.7.25'
+	implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+	implementation 'com.google.api-client:google-api-client:1.34.1'
+	implementation 'net.sf.aguacate.security.service.oauth2:security-service-oauth2-google:0.0.15'
+	implementation 'hu.blackbelt.bundles.google-api-client:com.google.api-services-oauth2:1.23.0_1'
+
+	javafxCompile "org.openjfx:javafx-base:12.0.1:win"
+	javafxCompile "org.openjfx:javafx-graphics:12.0.1:win"
+	javafxCompile "org.openjfx:javafx-controls:12.0.1:win"
+	javafxCompile "org.openjfx:javafx-fxml:12.0.1:win"
+
+	implementation      "com.google.auto.value:auto-value-annotations:1.6.2"
+	annotationProcessor "com.google.auto.value:auto-value:1.6.2"
+
+	implementation 'org.eclipse.lsp4j:org.eclipse.lsp4j:0.7.2'
+	implementation 'org.fxmisc.richtext:richtextfx:0.10.1'
+	implementation 'org.antlr:antlr4-runtime:4.7.2'
+	antlr 'org.antlr:antlr4:4.7.2'
+
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
+	implementation 'com.github.Vatuu:discord-rpc:1.6.2'
+
+	implementation configurations.javafxCompile
+
+	testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+	useJUnitPlatform()
+}
+
+jlink {
+	imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+	options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+	launcher {
+		name = 'app'
+	}
+}
+
+jlinkZip {
+	group = 'distribution'
+}
+
+run {
+	// environment.putAll([
+			// "PaintInjector": "${rootProject.projectDir}\\native",
+			// "NativePath": "${rootProject.projectDir}\\native",
+			// "DEV_MODE": DEV_MODE,
+			// "STATIC_LSP_DIRECTORY": STATIC_LSP_DIRECTORY
+	// ])
+	// jvmArgs("--illegal-access=deny")
+	//jvmArgs("--add-opens", "java.base/jdk.internal.loader=ALL-UNNAMED")
+	//jvmArgs("--add-opens", "java.base/java.io=ALL-UNNAMED")
+	//jvmArgs("--add-opens", "java.base/java.util=ALL-UNNAMED")
+	//jvmArgs("--enable-preview")
+//    args = ['Test.txt']
+}
+
+/*
+task preLaunch {
+	doLast {
+		apply plugin: "it.tellnet.sass"
+		println 'SCSS Compile'
+		sassCompile.compileAllCss()
+	}
+}
+*/
+
+/*
+task replaceStuff {
+	doLast {
+		ant.replaceregexp(match: '@charset "UTF-8";', replace: '') {
+			fileset(dir: 'src/main/resources', includes: 'style.css')
+		}
+	}
+}
+*/
+
+//compileJava.dependsOn replaceStuff
+// preLaunch.finalizedBy replaceStuff
+
+task copyDependencies(type: Copy) {
+	// from configurations.runtime - configurations.javafxCompile
+	from jar
+	into "${buildDir}/lib"
+}
