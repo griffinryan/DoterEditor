@@ -6,7 +6,7 @@
 
 [![GitHub issues by-label](https://img.shields.io/github/issues/griffinryan/doter/help%20wanted?label=issues%20need%20help&logo=github)](https://github.com/griffinryan/doter/issues?q=label%3A%22help+wanted%22+is%3Aopen+is%3Aissue)
 
-Doter Editor is built with [Maven](https://github.com/apache/maven)!
+Doter Editor is built with [Gradle](https://github.com/gradle/gradle)!
 
 [dotereditor.com](https://dotereditor.com/)
 
@@ -27,9 +27,8 @@ ___
     git clone https://github.com/griffinryan/doter.git
     cd doter/
 
-> Use [Maven](https://github.com/apache/maven) to build the project.
+> Use [Gradle](https://github.com/gradle/gradle) to build the project.
 
-    mvn compile package
-    jar target/doter-*.*.*.jar
+    JAVA_HOME=/path/to/java16/ gradle build run
 
 [griffinryan-github]: https://github.com/griffinryan/
