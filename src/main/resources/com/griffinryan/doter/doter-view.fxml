@@ -97,7 +97,7 @@
                 <Font size="18.0" fx:id="x1" />
               </font>
               <textFill>
-                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                <Color red="0.9" green="0.624" blue="0.624" fx:id="x2" />
               </textFill>
             </Label>
           </children>
