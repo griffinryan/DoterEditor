@@ -22,16 +22,19 @@ import java.io.IOException;
  * a JavaFX WebView.
  */
 public class DoterApplication extends Application {
+
+	public static void main(String[] args) {
+		launch();
+	}
+
 	@Override
 	public void start(Stage stage) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(DoterApplication.class.getResource("hello-view.fxml"));
-		Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+		FXMLLoader fxmlLoader = new FXMLLoader(DoterApplication.class.getResource("doter-view.fxml"));
+		Scene scene = new Scene(fxmlLoader.load(), 900, 600);
 		stage.setTitle("Hello!");
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	public static void main(String[] args) {
-		launch();
-	}
+	// Color paint = new Color(0.0, 0.3207, 0.52, 0.7572);
 }
