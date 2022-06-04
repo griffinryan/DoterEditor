@@ -14,13 +14,21 @@ version '0.0.1'
 
 description 'Doter Text Editor by Griffin Ryan'
 
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+	manifest {
+		attributes 'Implementation-Title': 'Doter Editor',
+				'Main-Class': 'com.griffinryan.doter'
+	}
+	with jar
+}
+
 repositories {
 	mavenCentral()
 	maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 	maven { url 'https://jitpack.io' }
 	maven { url 'https://repo.gradle.org/gradle/libs-releases' }
 }
-
 
 ext {
 	junitVersion = '5.8.2'

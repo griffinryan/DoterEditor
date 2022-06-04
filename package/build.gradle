@@ -56,7 +56,7 @@ task jpackage(type: Exec, dependsOn: ':copyDependencies') {
             '--input', libraryPath,
             '--output', bundlePath,
             '--main-jar', mainJar,
-            '--main-class', 'com.griffinryan.doter.main.DoterApplication',
+            '--main-class', 'com.griffinryan.doter.DoterApplication',
             '--java-options', '--add-opens javafx.base/com.sun.javafx.reflect=ALL-UNNAMED --add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED --add-opens javafx.base/com.sun.javafx.collections=ALL-UNNAMED --illegal-access=deny'
     environment << [JPACKAGE_DEBUG: true]
 }
