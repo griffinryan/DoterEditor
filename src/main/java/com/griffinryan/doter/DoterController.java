@@ -3,7 +3,7 @@ package com.griffinryan.doter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class DoterController {
 	@FXML
 	private Label welcomeText;
 

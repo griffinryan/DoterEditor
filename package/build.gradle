@@ -9,10 +9,6 @@ tasks.whenTaskAdded {task ->
 apply plugin: 'java'
 apply plugin: 'application'
 
-// assert Runtime.version().major() == 16
-sourceCompatibility = 16
-targetCompatibility = 16
-
 ext {
     publishedVersion = rootProject.version
 
@@ -21,12 +17,12 @@ ext {
     bundlePath = file("${buildDir}/bundle")
 
     // In-bundle resources
-    windowsExecutable = file("${bundlePath}/MSPaintIDE/MSPaintIDE.exe")
-    bundleContent = file("${bundlePath}/MSPaintIDE/*")
+    windowsExecutable = file("${bundlePath}/doter/doter.exe")
+    bundleContent = file("${bundlePath}/doter/*")
     bundleReadme = file("src/main/resources/README.html")
     appIcon = file('src/main/resources/icons/')
 
-    generatedInnoSetupFile = file("${buildDir}/resources/main/MSPaintIDE.iss")
+    generatedInnoSetupFile = file("${buildDir}/resources/main/doter.iss")
 
     bundlePath.deleteDir()
     bundlePath.mkdirs()
@@ -60,7 +56,7 @@ task jpackage(type: Exec, dependsOn: ':copyDependencies') {
             '--input', libraryPath,
             '--output', bundlePath,
             '--main-jar', mainJar,
-            '--main-class', 'com.griffinryan.doter.main.HelloApplication',
+            '--main-class', 'com.griffinryan.doter.main.DoterApplication',
             '--java-options', '--add-opens javafx.base/com.sun.javafx.reflect=ALL-UNNAMED --add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED --add-opens javafx.base/com.sun.javafx.collections=ALL-UNNAMED --illegal-access=deny'
     environment << [JPACKAGE_DEBUG: true]
 }
@@ -71,7 +67,7 @@ task completeInnoSetup {
         copy {
             from "${rootProject.projectDir}\\package\\src\\main\\resources"
             into "${bundlePath}\\doter"
-            exclude 'doterE.iss'
+            exclude 'doter.iss'
             exclude 'icons'
         }
 
