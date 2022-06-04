@@ -5,6 +5,7 @@ plugins {
 	id 'application'
 	id 'org.openjfx.javafxplugin' version '0.0.10'
 	id 'idea'
+	id 'maven-publish'
 	id "it.tellnet.sass" version "1.2"
 	id 'com.github.hierynomus.license' version '0.15.0'
 	// id "com.github.johnrengelman.shadow" version "4.0.2"
@@ -66,7 +67,6 @@ javafx {
 }
 
 dependencies {
-
 	implementation('org.controlsfx:controlsfx:11.1.1')
 	implementation('org.kordamp.ikonli:ikonli-javafx:12.3.1')
 	implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
@@ -93,17 +93,17 @@ test {
 	useJUnitPlatform()
 }
 
-run {
-	// environment.putAll([
-			// "NativePath": "${rootProject.projectDir}/native"
-	// ])
-	//jvmArgs("--add-opens", "java.base/java.io=ALL-UNNAMED")
-	//jvmArgs("--enable-preview")
-	//args = ['Test.txt']
-}
-
 task copyDependencies(type: Copy) {
 	// from configurations.runtime - configurations.javafxCompile
 	from jar
 	into "${buildDir}/lib"
+}
+
+run {
+	// environment.putAll([
+	// "NativePath": "${rootProject.projectDir}/native"
+	// ])
+	//jvmArgs("--add-opens", "java.base/java.io=ALL-UNNAMED")
+	//jvmArgs("--enable-preview")
+	//args = ['Test.txt']
 }

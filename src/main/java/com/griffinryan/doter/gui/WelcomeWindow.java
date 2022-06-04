@@ -1,4 +1,4 @@
 package com.griffinryan.doter.gui;
 
-public class CreateProjectWindow {
+public class WelcomeWindow {
 }
