@@ -53,9 +53,9 @@ public class DoterMenu {
 	}
 
 	public void openWindow(String type){
-		Stage openStage = new Stage();
-		window = new ChooseProjectWindow(type);
-		window.show();
+		// Stage openStage = new Stage();
+		// window = new ChooseProjectWindow(type);
+		// window.show();
 	}
 
 	public Menu getFileMenu() {

@@ -19,16 +19,6 @@ public class DoterApplication extends Application {
 
 	public static int INITIAL_WIDTH = 800;
 	public static int INITIAL_HEIGHT = 600;
-	/*
-	public Menu fileMenu;
-	public Menu editMenu;
-	public MenuItem newFile;
-	public MenuItem openFile;
-	public MenuItem saveFile;
-	public MenuItem sep;
-	public MenuItem openSettings;
-	public MenuItem closeProgram;
-	public MenuBar menuBar;	*/
 
 	public static void main(String[] args) {
 		launch();
