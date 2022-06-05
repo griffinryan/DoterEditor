@@ -1,5 +1,6 @@
 package com.griffinryan.doter.gui;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -21,7 +22,7 @@ public class DoterMenu {
 	public FileChooser fileChooser;
 	public ChooseProjectWindow window;
 
-	public DoterMenu(BorderPane parentPane){
+	public DoterMenu(Stage stage){
 		this.fileMenu = new Menu("File"); // TO-DO: Add second args
 		this.editMenu = new Menu("Edit"); // for image.
 
@@ -40,10 +41,10 @@ public class DoterMenu {
 		this.fileMenu.getItems().add(this.closeProgram);
 
 		this.fileChooser = new FileChooser();
-		this.newFile.setOnAction(e -> openWindow("New File"));
-		this.openFile.setOnAction(e -> openWindow("Open File"));
-		this.saveFile.setOnAction(e -> openWindow("Save File"));
-		this.openSettings.setOnAction(e -> openWindow("Open Settings"));
+		this.newFile.setOnAction(e -> openWindow("New File", stage));
+		this.openFile.setOnAction(e -> openWindow("Open File", stage));
+		this.saveFile.setOnAction(e -> openWindow("Save File", stage));
+		this.openSettings.setOnAction(e -> openWindow("Open Settings", stage));
 		this.closeProgram.setOnAction(e -> System.exit(0));
 
 		menuBar = new MenuBar();
@@ -52,10 +53,15 @@ public class DoterMenu {
 		menuBar.setUseSystemMenuBar(true);
 	}
 
-	public void openWindow(String type){
+	public void openWindow(String type, Stage stage){
 		// Stage openStage = new Stage();
 		// window = new ChooseProjectWindow(type);
 		// window.show();
+		FileChooser fileChooser = new FileChooser();
+		if(type.equals("New File")){
+
+			fileChooser.showSaveDialog(stage);
+		}
 	}
 
 	public Menu getFileMenu() {

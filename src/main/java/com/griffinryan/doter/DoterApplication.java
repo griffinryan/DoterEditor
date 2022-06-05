@@ -39,7 +39,7 @@ public class DoterApplication extends Application {
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
 
-		DoterMenu appMenu = new DoterMenu(parentPane);
+		DoterMenu appMenu = new DoterMenu(primaryStage);
 
 		parentPane.setTop(appMenu.menuBar);
 		parentPane.setCenter(pane);
