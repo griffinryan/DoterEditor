@@ -1,24 +1,34 @@
 package com.griffinryan.doter;
 
+import com.griffinryan.doter.gui.DoterMenu;
 import eu.mihosoft.monacofx.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class DoterApplication extends Application {
 
 	public static int INITIAL_WIDTH = 800;
 	public static int INITIAL_HEIGHT = 600;
+	/*
+	public Menu fileMenu;
+	public Menu editMenu;
+	public MenuItem newFile;
+	public MenuItem openFile;
+	public MenuItem saveFile;
+	public MenuItem sep;
+	public MenuItem openSettings;
+	public MenuItem closeProgram;
+	public MenuBar menuBar;	*/
 
 	public static void main(String[] args) {
 		launch();
@@ -28,26 +38,24 @@ public class DoterApplication extends Application {
 	public void start(Stage primaryStage) throws RuntimeException {
 		/* Create a new MonacoFX editor node and SplitPane to use. */
 		MonacoFX monaco = createMonacoNode();
-		Background cooler = new Background(new BackgroundFill(Color.DARKSALMON, CornerRadii.EMPTY, Insets.EMPTY));
-
 		StackPane editorPane = new StackPane();
 		StackPane explorerPane = new StackPane();
-		editorPane.setBackground(cooler);
-		explorerPane.setBackground(cooler);
-		explorerPane.setMaxSize(200,600);
-		explorerPane.setOpacity(0.9);
-
-		editorPane.getChildren().add(monaco);
-		// explorerPane.getChildren().add(fileExplorer());
-
+		BorderPane parentPane = new BorderPane();
 		SplitPane pane = new SplitPane();
+
+		explorerPane.setMaxSize(200,600);
+		editorPane.getChildren().add(monaco);
+
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
 
+		DoterMenu appMenu = new DoterMenu(parentPane);
+
+		parentPane.setTop(appMenu.menuBar);
+		parentPane.setCenter(pane);
 		// the usual scene & stage setup
-		Scene scene = new Scene(pane, INITIAL_WIDTH,INITIAL_HEIGHT);
+		Scene scene = new Scene(parentPane, INITIAL_WIDTH,INITIAL_HEIGHT);
 		primaryStage.setTitle("Doter Editor - example.java");
-		primaryStage.setOpacity(1);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -68,6 +76,30 @@ public class DoterApplication extends Application {
 		result.getEditor().setCurrentTheme("vs-dark");
 		return result;
 	}
+
+	/*
+	public static MenuBar createMenuBar(Stage primaryStage){
+		Menu fileMenu = new Menu("File");
+		Menu editMenu = new Menu("Edit");
+
+		MenuItem newFile = new MenuItem("New...");
+		MenuItem openFile = new MenuItem("Open...");
+		MenuItem saveFile = new MenuItem("Save...");
+		MenuItem sep = new SeparatorMenuItem();
+		MenuItem openSettings = new MenuItem("Settings...");
+		MenuItem closeProgram = new MenuItem("Quit...");
+
+		fileMenu.getItems().addAll(newFile, openFile, saveFile, sep, openSettings, sep, closeProgram);
+
+		FileChooser fileChooser = new FileChooser();
+		//newFile.setOnAction(e -> fileChooser.showOpenDialog(primaryStage));
+
+		MenuBar menuBar = new MenuBar();
+		menuBar.getMenus().addAll(fileMenu, editMenu);
+
+		menuBar.setUseSystemMenuBar(true);
+		return menuBar;
+	}	*/
 
 
 }
