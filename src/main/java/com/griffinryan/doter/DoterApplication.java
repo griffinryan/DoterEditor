@@ -40,13 +40,7 @@ public class DoterApplication extends Application {
 		SplitPane pane = new SplitPane(monaco);
 
 		// set initial text.
-		monaco.getEditor().getDocument().setText(
-				"#include <stdio.h>\n" +
-						"int main() {\n" +
-						"   // printf() displays the string inside quotation\n" +
-						"   printf(\"Hello, World!\");\n" +
-						"   return 0;\n" +
-						"}");
+		monaco.getEditor().getDocument().setText("import java.farts");
 
 		// use a predefined language like 'c'
 		monaco.getEditor().setCurrentLanguage("java");
@@ -54,8 +48,8 @@ public class DoterApplication extends Application {
 		monaco.getBackground();
 
 		// the usual scene & stage setup
-		Scene scene = new Scene(pane, 800,600);
-		primaryStage.setTitle("MonacoFX Demo (running on JDK " + System.getProperty("java.version") + ")");
+		Scene scene = new Scene(pane, 900,600);
+		primaryStage.setTitle("Doter Editor - example.java");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
