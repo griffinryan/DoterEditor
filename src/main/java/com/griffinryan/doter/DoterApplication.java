@@ -35,18 +35,19 @@ public class DoterApplication extends Application {
 		editorPane.setBackground(cooler);
 		explorerPane.setBackground(cooler);
 		explorerPane.setMaxSize(200,600);
+		explorerPane.setOpacity(0.9);
 
 		editorPane.getChildren().add(monaco);
-		explorerPane.getChildren().add(fileExplorer());
+		// explorerPane.getChildren().add(fileExplorer());
 
 		SplitPane pane = new SplitPane();
 		pane.getItems().addAll(explorerPane, editorPane);
-		pane.setOpacity(0.9);
+		pane.setOpacity(1);
 
 		// the usual scene & stage setup
 		Scene scene = new Scene(pane, INITIAL_WIDTH,INITIAL_HEIGHT);
 		primaryStage.setTitle("Doter Editor - example.java");
-		primaryStage.setOpacity(0.95);
+		primaryStage.setOpacity(1);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -68,20 +69,5 @@ public class DoterApplication extends Application {
 		return result;
 	}
 
-	public static StackPane fileExplorer(){
-		Image dirimg = new Image("folder.png");
-		ImageView imgview = new ImageView(dirimg);
 
-		TreeItem<String> rootItem = new TreeItem<> ("Inbox", imgview);
-		rootItem.setExpanded(true);
-		for (int i = 1; i < 6; i++) {
-			TreeItem<String> item = new TreeItem<> ("Message" + i);
-			rootItem.getChildren().add(item);
-		}
-		TreeView<String> tree = new TreeView<> (rootItem);
-		StackPane treeRoot = new StackPane();
-		treeRoot.getChildren().add(tree);
-
-		return treeRoot;
-	}
 }
