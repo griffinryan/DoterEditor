@@ -31,6 +31,7 @@ public class Workspace {
 	}
 
 	public String getSavedDocument() {
+
 		return savedDocument;
 	}
 

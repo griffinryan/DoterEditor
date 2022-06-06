@@ -1,5 +1,7 @@
 package com.griffinryan.doter.gui;
 
+import com.griffinryan.doter.DoterApplication;
+import eu.mihosoft.monacofx.MonacoFX;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -49,6 +51,7 @@ public class DoterMenu {
 	public void openWindow(String type, Stage stage){
 		this.fileChooser = new FileChooser();
 		this.directoryChooser = new DirectoryChooser();
+		//MonacoFX tempMonaco = DoterApplication.
 
 		switch (type) {
 			case "Open Settings" -> System.out.println("Haha, there are no settings!");

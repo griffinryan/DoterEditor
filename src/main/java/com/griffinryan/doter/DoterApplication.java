@@ -1,5 +1,6 @@
 package com.griffinryan.doter;
 
+import com.griffinryan.doter.editor.CodeEditor;
 import com.griffinryan.doter.editor.Workspace;
 import com.griffinryan.doter.gui.DoterMenu;
 import eu.mihosoft.monacofx.*;
@@ -18,8 +19,8 @@ import javafx.stage.StageStyle;
 
 public class DoterApplication extends Application {
 
-	public static int INITIAL_WIDTH = 800;
-	public static int INITIAL_HEIGHT = 600;
+	private static int INITIAL_WIDTH = 800;
+	private static int INITIAL_HEIGHT = 600;
 	public String TEMPEXTENSION = "java";
 
 	public static void main(String[] args) {
@@ -29,7 +30,7 @@ public class DoterApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws RuntimeException {
 		/* Create a new MonacoFX editor node and SplitPane to use. */
-		MonacoFX monaco = createMonacoNode();
+		CodeEditor editor = new CodeEditor();
 		Workspace workspace = new Workspace(TEMPEXTENSION);
 
 		StackPane editorPane = new StackPane();
@@ -38,7 +39,7 @@ public class DoterApplication extends Application {
 		SplitPane pane = new SplitPane();
 
 		explorerPane.setMaxSize(200,600);
-		editorPane.getChildren().add(monaco);
+		editorPane.getChildren().add(editor.getMonaco());
 
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
@@ -54,6 +55,7 @@ public class DoterApplication extends Application {
 		primaryStage.show();
 	}
 
+	/*
 	public static MonacoFX createMonacoNode(){
 		// set initial text.
 		MonacoFX result = new MonacoFX();
@@ -69,31 +71,10 @@ public class DoterApplication extends Application {
 		result.getEditor().setCurrentLanguage("java");
 		result.getEditor().setCurrentTheme("vs-dark");
 		return result;
-	}
-
-	/*
-	public static MenuBar createMenuBar(Stage primaryStage){
-		Menu fileMenu = new Menu("File");
-		Menu editMenu = new Menu("Edit");
-
-		MenuItem newFile = new MenuItem("New...");
-		MenuItem openFile = new MenuItem("Open...");
-		MenuItem saveFile = new MenuItem("Save...");
-		MenuItem sep = new SeparatorMenuItem();
-		MenuItem openSettings = new MenuItem("Settings...");
-		MenuItem closeProgram = new MenuItem("Quit...");
-
-		fileMenu.getItems().addAll(newFile, openFile, saveFile, sep, openSettings, sep, closeProgram);
-
-		FileChooser fileChooser = new FileChooser();
-		//newFile.setOnAction(e -> fileChooser.showOpenDialog(primaryStage));
-
-		MenuBar menuBar = new MenuBar();
-		menuBar.getMenus().addAll(fileMenu, editMenu);
-
-		menuBar.setUseSystemMenuBar(true);
-		return menuBar;
 	}	*/
 
+	public static void updateMonacoNode(MonacoFX monaco){
+
+	}
 
 }
