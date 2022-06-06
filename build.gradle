@@ -72,7 +72,8 @@ dependencies {
 	implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
 	implementation 'com.intellij:forms_rt:7.0.3'
 	implementation 'org.gradle:gradle-tooling-api:7.3-20210825160000+0000'
-	javafxCompile 'org.openjfx:javafx-base:18.0.1:win'
+    implementation 'org.json:json:20220320'
+    javafxCompile 'org.openjfx:javafx-base:18.0.1:win'
 	javafxCompile 'org.openjfx:javafx-graphics:18.0.1:win'
 	javafxCompile 'org.openjfx:javafx-controls:18.0.1:win'
 	javafxCompile 'org.openjfx:javafx-fxml:18.0.1:win'

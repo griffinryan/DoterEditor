@@ -125,6 +125,10 @@ if (useJpackage) buildAliases.put('createInstaller', [':package:build', ':packag
 
 def expandedTaskList = []
 
+dependencies {
+    implementation 'org.json:json:20220320'
+}
+
 /*
 dependencies {
 	// implementation 'com.google.api-client:google-api-client:1.34.1'
