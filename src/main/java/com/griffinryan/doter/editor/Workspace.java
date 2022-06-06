@@ -37,6 +37,7 @@ public class Workspace {
 		if(!hasRecent){
 			createConfig();
 		} else{
+			this.jsonFile = parsejsonConfig();
 			this.fileName = jsonFile.getString("fileName");
 			this.fileLocation = jsonFile.getString("fileLocation");
 			this.directoryName = jsonFile.getString("directoryName");
@@ -57,6 +58,25 @@ public class Workspace {
 
 		writer.flush();
 		writer.close();
+	}
+
+	private JSONObject parsejsonConfig(){
+		File file = new File("doter.json");
+		String s = saveFileToString(file);
+		JSONObject json = new JSONObject(s);
+
+		return json;
+	}
+
+	private String saveFileToString(File file){
+		String result = "";
+		Path filePath = file.toPath();
+		try {
+			result = Files.readString(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	private boolean checkHasRecent(){
