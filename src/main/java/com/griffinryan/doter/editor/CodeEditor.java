@@ -4,7 +4,7 @@ import eu.mihosoft.monacofx.MonacoFX;
 
 public class CodeEditor {
 
-	MonacoFX monaco;
+	private MonacoFX monaco;
 
 	public CodeEditor(){
 		this.monaco = new MonacoFX();

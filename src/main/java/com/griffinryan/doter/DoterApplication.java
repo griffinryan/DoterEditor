@@ -30,7 +30,7 @@ public class DoterApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws RuntimeException {
 		/* Create a new MonacoFX editor node and SplitPane to use. */
-		Workspace workspace = new Workspace(TEMPEXTENSION);
+		Workspace workspace = new Workspace();
 		if(workspace.isHasRecent()){
 
 		} else {

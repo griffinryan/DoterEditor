@@ -34,11 +34,34 @@ public class Workspace {
 	*
 	* */
 
-	public Workspace(String ext){
-		this.fileExtension = ext;
+	public Workspace() {
+		checkHasRecent();
+		jsonFile = new JSONObject();
+
+		// TO-DO: Instantiate all fields like fileName, ....
+
+		if(!hasRecent){
+			/* Create a new /~/.config/doter/doter.json file. */
+			try {
+				createConfig();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			/* Parse in existing /~/.config/doter/doter.json file. */
+			// Try
+
+		}
+
 	}
 
-	public Workspace(String file, String path, String directory, String ext) throws IOException {
+	/*
+	public Workspace(String ext){
+		this.fileExtension = ext;
+	}	*/
+
+	/*public Workspace(String file, String path, String directory, String ext) throws IOException {
 		this.currentFile = new File(file);
 		this.fileName = file;
 		this.fileLocation = path;
@@ -58,7 +81,7 @@ public class Workspace {
 			this.directoryLocation = jsonFile.getString("directoryLocation");
 			this.fileExtension = jsonFile.getString("fileExtension");
 		}
-	}
+	}	*/
 
 	private void createConfig() throws IOException {
 		this.jsonFile.put("fileName", "void");
@@ -67,7 +90,16 @@ public class Workspace {
 		this.jsonFile.put("directoryLocation", "void");
 		this.jsonFile.put("fileExtension", "void");
 
-		File file = new File("doter.json");
+		boolean configExists;
+		String home = System.getProperty("user.home");
+		File dir = new File(home + "/.config/doter");
+
+		if(!dir.exists()){
+			configExists = dir.mkdir();
+		}
+		File file = new File(dir, "doter.json");
+
+		//File file = new File("doter.json");
 		PrintWriter writer = new PrintWriter(file);
 		writer.println(this.jsonFile.toString());
 
@@ -94,10 +126,12 @@ public class Workspace {
 		return result;
 	}
 
-	private boolean checkHasRecent(){
-		File config = new File("doter.json");
+	private void checkHasRecent(){
+		String home = System.getProperty("user.home");
+
+		File config = new File(home + "/.config/doter/doter.json");
 		Path path = config.toPath();
-		return !Files.notExists(path);
+		hasRecent = !Files.notExists(path);
 	}
 
 	public void instCurrentFile(String s){
