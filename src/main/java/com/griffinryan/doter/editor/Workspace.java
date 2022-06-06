@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -53,8 +54,8 @@ public class Workspace {
 		this.jsonFile.put("directoryLocation", "void");
 		this.jsonFile.put("fileExtension", "void");
 
-		FileWriter writer = new FileWriter("doter.json");
-		writer.write(this.jsonFile.toString());
+		PrintWriter writer = new PrintWriter("doter.json");
+		writer.println(this.jsonFile.toString());
 
 		writer.flush();
 		writer.close();
