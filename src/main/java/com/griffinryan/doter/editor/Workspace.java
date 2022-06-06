@@ -86,4 +86,5 @@ public class Workspace {
 	public void setFileExtension(String fileExtension) {
 		this.fileExtension = fileExtension;
 	}
+
 }
