@@ -50,7 +50,6 @@ public class Workspace {
 
 		} else {
 			/* Parse in existing /~/.config/doter/doter.json file. */
-			// Try
 
 		}
 
