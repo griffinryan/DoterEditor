@@ -38,8 +38,6 @@ public class Workspace {
 		checkHasRecent();
 		jsonFile = new JSONObject();
 
-		// TO-DO: Instantiate all fields like fileName, ....
-
 		if(!hasRecent){
 			/* Create a new /~/.config/doter/doter.json file. */
 			try {
@@ -50,7 +48,7 @@ public class Workspace {
 
 		} else {
 			/* Parse in existing /~/.config/doter/doter.json file. */
-			int farts;
+			int farts;	/*	TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: */
 
 		}
 
