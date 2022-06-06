@@ -1,6 +1,8 @@
 package com.griffinryan.doter.gui;
 
 import com.griffinryan.doter.DoterApplication;
+import com.griffinryan.doter.editor.CodeEditor;
+import com.griffinryan.doter.editor.Workspace;
 import eu.mihosoft.monacofx.MonacoFX;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -12,10 +14,15 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class DoterMenu {
 
 	public Menu fileMenu;
 	public Menu editMenu;
+	public FileChooser fileChooser;
+	public DirectoryChooser directoryChooser;
+
 	public MenuItem newFile;
 	public MenuItem newProject;
 	public MenuItem openFile;
@@ -24,16 +31,19 @@ public class DoterMenu {
 	public MenuItem openSettings;
 	public MenuItem closeProgram;
 	public MenuBar menuBar;
-	public FileChooser fileChooser;
-	public DirectoryChooser directoryChooser;
-	public ChooseProjectWindow window;
-	public String fileExtensionName;
+
+	public Workspace workspace;
+	public CodeEditor editor;
+
 	String TEMPEXTENSION = "java";
 
-	public DoterMenu(Stage stage){
-		createMenuItems();
+	public DoterMenu(Stage stage, Workspace workspace, CodeEditor editor){
 		this.fileChooser = new FileChooser();
 		this.setFileExtensionName(TEMPEXTENSION);
+		this.setWorkspace(workspace);
+		this.setEditor(editor);
+
+		createMenuItems();
 
 		this.newFile.setOnAction(e -> openWindow("New File", stage));
 		this.newProject.setOnAction(e -> openWindow("New Project", stage));
@@ -51,12 +61,12 @@ public class DoterMenu {
 	public void openWindow(String type, Stage stage){
 		this.fileChooser = new FileChooser();
 		this.directoryChooser = new DirectoryChooser();
-		//MonacoFX tempMonaco = DoterApplication.
+		MonacoFX tempMonaco = this.editor.getMonaco();
 
 		switch (type) {
 			case "Open Settings" -> System.out.println("Haha, there are no settings!");
 			case "New File" -> {
-				this.fileChooser.setInitialFileName(fileExtensionName);
+				this.fileChooser.setInitialFileName(workspace.getFileExtension());
 				this.fileChooser.setTitle("Create New File..."); // set operation title.
 				this.fileChooser.showSaveDialog(stage);    // save operation.
 			}
@@ -65,8 +75,12 @@ public class DoterMenu {
 				this.fileChooser.showOpenDialog(stage);    // save operation.
 			}
 			case "Save" -> {
-				this.fileChooser.setInitialFileName(fileExtensionName);
+				this.fileChooser.setInitialFileName(workspace.getFileExtension());
 				this.fileChooser.setTitle("Save..."); // set operation title.
+
+				File toSaveDocument = new File(workspace.getFileName());
+				toSa
+
 				this.fileChooser.showSaveDialog(stage);    // save operation.
 			}
 			case "Open Project" -> {
@@ -174,4 +188,19 @@ public class DoterMenu {
 		this.menuBar = menuBar;
 	}
 
+	public Workspace getWorkspace() {
+		return workspace;
+	}
+
+	public void setWorkspace(Workspace workspace) {
+		this.workspace = workspace;
+	}
+
+	public CodeEditor getEditor() {
+		return editor;
+	}
+
+	public void setEditor(CodeEditor editor) {
+		this.editor = editor;
+	}
 }
