@@ -3,6 +3,7 @@ package com.griffinryan.doter.editor;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -54,6 +55,7 @@ public class Workspace {
 		jsonFile.put("fileLocation", "void");
 		jsonFile.put("directoryLocation", "void");
 		jsonFile.put("fileExtension", "void");
+		writejsonConfig(); // call method to write to file.
 	}
 
 	private boolean checkHasRecent(){
@@ -75,8 +77,7 @@ public class Workspace {
 	}
 
 	public String getSavedDocument() {
-
-		return savedDocument;
+		return this.savedDocument;
 	}
 
 	public void setSavedDocument(String savedDocument) {
@@ -137,5 +138,79 @@ public class Workspace {
 
 	public void setJsonFile(JSONObject jsonFile) {
 		this.jsonFile = jsonFile;
+	}
+
+	public String getjsonFileName(){
+		String name = this.jsonFile.getString("fileName");
+		return name;
+	}
+
+	public String getjsonFileLocation(){
+		String location = this.jsonFile.getString("fileLocation");
+		return location;
+	}
+
+	public String getjsonDirectoryName(){
+		String name = this.jsonFile.getString("directoryName");
+		return name;
+	}
+
+	public String getjsonDirectoryLocation(){
+		String location = this.jsonFile.getString("directoryLocation");
+		return location;
+	}
+
+	public String getjsonFileExtension(){
+		String extension = this.jsonFile.getString("fileExtension");
+		return extension;
+	}
+
+	public void setjsonFileName(String s){
+		this.jsonFile.put("fileName", s);
+	}
+
+	public void setjsonFileLocation(String s){
+		this.jsonFile.put("fileLocation", s);
+	}
+
+	public void setjsonDirectoryName(String s){
+		this.jsonFile.put("directoryName", s);
+	}
+
+	public void setjsonDirectoryLocation(String s){
+		this.jsonFile.put("directoryLocation", s);
+	}
+
+	public void setjsonFileExtension(String s){
+		this.jsonFile.put("fileExtension", s);
+	}
+
+	public void writejsonConfig(){
+		FileWriter writer = null;
+		String home = System.getProperty("user.home");
+
+		/* try/catch block to write in ~/.config/doter/doter.json */
+		try {
+			writer = new FileWriter(home + "/.config/doter/doter.json");
+			writer.write(this.jsonFile.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try{
+			assert writer != null;
+			writer.flush();
+			writer.close();
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isHasRecent() {
+		return hasRecent;
+	}
+
+	public void setHasRecent(boolean hasRecent) {
+		this.hasRecent = hasRecent;
 	}
 }
