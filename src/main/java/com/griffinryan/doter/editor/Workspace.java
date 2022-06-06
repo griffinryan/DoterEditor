@@ -54,7 +54,8 @@ public class Workspace {
 		this.jsonFile.put("directoryLocation", "void");
 		this.jsonFile.put("fileExtension", "void");
 
-		PrintWriter writer = new PrintWriter("doter.json");
+		File file = new File("doter.json");
+		PrintWriter writer = new PrintWriter(file);
 		writer.println(this.jsonFile.toString());
 
 		writer.flush();
