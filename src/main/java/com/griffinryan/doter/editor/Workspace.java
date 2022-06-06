@@ -24,7 +24,7 @@ public class Workspace {
 		this.fileExtension = ext;
 	}
 
-	public Workspace(String file, String path, String directory, String ext){
+	public Workspace(String file, String path, String directory, String ext) throws IOException {
 		this.currentFile = new File(file);
 		this.fileName = file;
 		this.fileLocation = path;
@@ -45,31 +45,24 @@ public class Workspace {
 		}
 	}
 
-	private void createConfig(){
-		String home = System.getProperty("user.home");
-		File configDir = new File(home + "/.config/doter");
-		File configFile = new File(configDir, "doter.json");
+	private void createConfig() throws IOException {
+		this.jsonFile.put("fileName", "void");
+		this.jsonFile.put("directoryName", "void");
+		this.jsonFile.put("fileLocation", "void");
+		this.jsonFile.put("directoryLocation", "void");
+		this.jsonFile.put("fileExtension", "void");
 
-		jsonFile.put("fileName", "void");
-		jsonFile.put("directoryName", "void");
-		jsonFile.put("fileLocation", "void");
-		jsonFile.put("directoryLocation", "void");
-		jsonFile.put("fileExtension", "void");
-		writejsonConfig(); // call method to write to file.
+		FileWriter writer = new FileWriter("doter.json");
+		writer.write(this.jsonFile.toString());
+
+		writer.flush();
+		writer.close();
 	}
 
 	private boolean checkHasRecent(){
-		String home = System.getProperty("user.home");
-		Path tempDirectory = null;
-
-		try {
-			tempDirectory = Files.createTempDirectory(home + "/.config/doter");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		assert tempDirectory != null;
-		return !Files.notExists(tempDirectory);
+		File config = new File("doter.json");
+		Path path = config.toPath();
+		return !Files.notExists(path);
 	}
 
 	public void instCurrentFile(String s){
@@ -183,27 +176,6 @@ public class Workspace {
 
 	public void setjsonFileExtension(String s){
 		this.jsonFile.put("fileExtension", s);
-	}
-
-	public void writejsonConfig(){
-		FileWriter writer = null;
-		String home = System.getProperty("user.home");
-
-		/* try/catch block to write in ~/.config/doter/doter.json */
-		try {
-			writer = new FileWriter(home + "/.config/doter/doter.json");
-			writer.write(this.jsonFile.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try{
-			assert writer != null;
-			writer.flush();
-			writer.close();
-		} catch (IOException e){
-			e.printStackTrace();
-		}
 	}
 
 	public boolean isHasRecent() {
