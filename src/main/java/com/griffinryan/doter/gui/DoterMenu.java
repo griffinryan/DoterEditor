@@ -13,8 +13,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.checkerframework.checker.units.qual.C;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DoterMenu {
 
@@ -32,16 +37,17 @@ public class DoterMenu {
 	public MenuItem closeProgram;
 	public MenuBar menuBar;
 
-	public Workspace workspace;
-	public CodeEditor editor;
+	private Workspace workspace;
+	private CodeEditor editor;
 
+	String fileExtensionName;
 	String TEMPEXTENSION = "java";
 
-	public DoterMenu(Stage stage, Workspace workspace, CodeEditor editor){
+	public DoterMenu(Stage stage, Workspace workspace){
 		this.fileChooser = new FileChooser();
 		this.setFileExtensionName(TEMPEXTENSION);
 		this.setWorkspace(workspace);
-		this.setEditor(editor);
+		this.editor = new CodeEditor();
 
 		createMenuItems();
 
@@ -78,10 +84,9 @@ public class DoterMenu {
 				this.fileChooser.setInitialFileName(workspace.getFileExtension());
 				this.fileChooser.setTitle("Save..."); // set operation title.
 
-				File toSaveDocument = new File(workspace.getFileName());
-				toSa
-
-				this.fileChooser.showSaveDialog(stage);    // save operation.
+				File file = this.fileChooser.showSaveDialog(stage);
+				String parsed = parseDocument(this.editor);
+				saveTextToFile(parsed, file);
 			}
 			case "Open Project" -> {
 				this.directoryChooser.setTitle("Open Project...");
@@ -94,8 +99,24 @@ public class DoterMenu {
 		}
 	}
 
+	public String parseDocument(CodeEditor editor){
+		return editor.getMonaco().getEditor().getDocument().getText();
+	}
+
+	private void saveTextToFile(String parsed, File file){
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(file);
+			writer.println(parsed);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			Logger.getLogger(DoterMenu.class.getName()).log(Level.SEVERE, null, e);
+		}
+	}
+
 	public void setFileExtensionName(String s){
-		this.fileExtensionName = "." + s; // set to .java
+		this.fileExtensionName = " ." + s; // set to .java
 		this.fileChooser.setInitialFileName("App" + fileExtensionName);
 	}
 

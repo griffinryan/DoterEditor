@@ -30,7 +30,6 @@ public class DoterApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws RuntimeException {
 		/* Create a new MonacoFX editor node and SplitPane to use. */
-		CodeEditor editor = new CodeEditor();
 		Workspace workspace = new Workspace(TEMPEXTENSION);
 
 		StackPane editorPane = new StackPane();
@@ -38,15 +37,15 @@ public class DoterApplication extends Application {
 		BorderPane parentPane = new BorderPane();
 		SplitPane pane = new SplitPane();
 
+		DoterMenu appMenu = new DoterMenu(primaryStage, workspace);
+
 		explorerPane.setMaxSize(200,600);
-		editorPane.getChildren().add(editor.getMonaco());
+		editorPane.getChildren().add(appMenu.getEditor().getMonaco());
 
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
 
-		DoterMenu appMenu = new DoterMenu(primaryStage);
-
-		parentPane.setTop(appMenu.menuBar);
+		parentPane.setTop(appMenu.getMenuBar());
 		parentPane.setCenter(pane);
 		// the usual scene & stage setup
 		Scene scene = new Scene(parentPane, INITIAL_WIDTH,INITIAL_HEIGHT);
