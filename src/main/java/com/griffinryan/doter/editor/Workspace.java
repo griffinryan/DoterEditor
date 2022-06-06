@@ -20,6 +20,19 @@ public class Workspace {
 	private JSONObject jsonFile;
 	private String savedDocument;
 	private boolean hasRecent;
+	/*
+	* YOU ARE INSTANTIATING THE WRONG CONSTRUCTOR
+	* FOR WORKSPACE() OBJECT.
+	*
+	* THAT'S WHY IT IS NOT WRITING TO A
+	* .json FILE. MAKE A NEW CONSTRUCTOR FOR
+	* WORKSPACE() CLASS WITHOUT ARGS.
+	*
+	* public Workspace(){
+	* 		// NO ARGS HERE!!! :)
+	* }
+	*
+	* */
 
 	public Workspace(String ext){
 		this.fileExtension = ext;
