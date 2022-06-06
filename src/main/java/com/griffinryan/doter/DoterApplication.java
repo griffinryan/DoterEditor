@@ -1,5 +1,6 @@
 package com.griffinryan.doter;
 
+import com.griffinryan.doter.editor.Workspace;
 import com.griffinryan.doter.gui.DoterMenu;
 import eu.mihosoft.monacofx.*;
 import javafx.application.Application;
@@ -19,6 +20,7 @@ public class DoterApplication extends Application {
 
 	public static int INITIAL_WIDTH = 800;
 	public static int INITIAL_HEIGHT = 600;
+	public String TEMPEXTENSION = "java";
 
 	public static void main(String[] args) {
 		launch();
@@ -28,6 +30,8 @@ public class DoterApplication extends Application {
 	public void start(Stage primaryStage) throws RuntimeException {
 		/* Create a new MonacoFX editor node and SplitPane to use. */
 		MonacoFX monaco = createMonacoNode();
+		Workspace workspace = new Workspace(TEMPEXTENSION);
+
 		StackPane editorPane = new StackPane();
 		StackPane explorerPane = new StackPane();
 		BorderPane parentPane = new BorderPane();

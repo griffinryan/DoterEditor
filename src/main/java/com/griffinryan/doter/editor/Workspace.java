@@ -9,13 +9,33 @@ public class Workspace {
 	private String fileLocation;
 	private String directoryName;
 	private String directoryLocation;
+	private String savedDocument;
 
-	public Workspace(String file, String path, String directory){
+	private String fileExtension;
+
+	public Workspace(String ext){
+		this.fileExtension = ext;
+	}
+
+	public Workspace(String file, String path, String directory, String ext){
 		this.currentFile = new File(file);
 		this.fileName = file;
 		this.fileLocation = path;
 		this.directoryName = directory;
 		this.directoryLocation = path;
+		this.fileExtension = ext;
+	}
+
+	public void instCurrentFile(String s){
+		this.currentFile = new File(s);
+	}
+
+	public String getSavedDocument() {
+		return savedDocument;
+	}
+
+	public void setSavedDocument(String savedDocument) {
+		this.savedDocument = savedDocument;
 	}
 
 	public File getCurrentFile() {
@@ -56,5 +76,13 @@ public class Workspace {
 
 	public void setDirectoryLocation(String directoryLocation) {
 		this.directoryLocation = directoryLocation;
+	}
+
+	public String getFileExtension() {
+		return fileExtension;
+	}
+
+	public void setFileExtension(String fileExtension) {
+		this.fileExtension = fileExtension;
 	}
 }
