@@ -1,5 +1,6 @@
 package com.griffinryan.doter.gui;
 
+import com.griffinryan.doter.DoterApplication;
 import com.griffinryan.doter.editor.CodeEditor;
 import com.griffinryan.doter.editor.EditorTool;
 import com.griffinryan.doter.editor.Workspace;
@@ -90,9 +91,9 @@ public class DoterMenu extends EditorTool {
 			}
 			case "Open File In Pane" -> {
 				this.fileChooser.setTitle("Open File..."); // set operation title.
-				file = this.fileChooser.showOpenDialog(stage);    // save operation.
+				File secondFile = this.fileChooser.showOpenDialog(stage);    // save operation.
 
-				String document = saveFileToString(file);
+				String document = saveFileToString(secondFile);
 				openPaneWithEditor(document, file);
 			}
 			case "Save As" -> {
@@ -144,7 +145,7 @@ public class DoterMenu extends EditorTool {
 		secondEditor.getMonaco().getEditor().setDocument(doc);
 
 		this.workspace.setSplitPaneProperties(file);
-
+		DoterApplication.launch();
 	}
 
 
