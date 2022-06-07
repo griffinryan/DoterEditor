@@ -3,6 +3,7 @@ package com.griffinryan.doter.gui;
 import com.griffinryan.doter.editor.CodeEditor;
 import com.griffinryan.doter.editor.EditorTool;
 import com.griffinryan.doter.editor.Workspace;
+import eu.mihosoft.monacofx.Document;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -92,7 +93,7 @@ public class DoterMenu extends EditorTool {
 				file = this.fileChooser.showOpenDialog(stage);    // save operation.
 
 				String document = saveFileToString(file);
-				openPaneWithEditor(document);
+				openPaneWithEditor(document, file);
 			}
 			case "Save As" -> {
 				this.fileChooser.setInitialFileName(workspace.getFileExtension());
@@ -136,6 +137,14 @@ public class DoterMenu extends EditorTool {
 		this.editor.getMonaco().getEditor().getDocument().setText(document);
 	}
 
+	public void openPaneWithEditor(String document, File file){
+		this.hasSplitPane = true;
+		Document doc = new Document();
+		doc.setText(document);
+		secondEditor.getMonaco().getEditor().setDocument(doc);
+
+
+	}
 
 
 	public String parseDocument(CodeEditor editor){

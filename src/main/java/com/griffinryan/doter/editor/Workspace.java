@@ -21,12 +21,16 @@ import java.util.Map;
 public class Workspace {
 
 	private File currentFile;
+	private File secondCurrentFile;
 
 	private String fileName;
 	private String fileLocation;
 	private String directoryName;
 	private String directoryLocation;
 	private String fileExtension;
+	private String secondFileName;
+	private String secondFileLocation;
+	private String secondFileExtension;
 	private Map<String, String> propertyMap;
 
 	private JSONObject jsonFile;
@@ -68,6 +72,9 @@ public class Workspace {
 		propertyMap.put("fileLocation", this.fileLocation);
 		propertyMap.put("directoryLocation", this.directoryLocation);
 		propertyMap.put("fileExtension", this.fileExtension);
+		propertyMap.put("secondFileName", this.secondFileName);
+		propertyMap.put("secondFileLocation", this.secondFileLocation);
+		propertyMap.put("secondFileExtension", this.secondFileExtension);
 		this.jsonFile = new JSONObject(this.propertyMap);
 
 		String home = System.getProperty("user.home");
@@ -121,6 +128,17 @@ public class Workspace {
 
 		writer.flush();
 		writer.close();
+	}
+
+	private void setSecondCurrentFile(File file){
+		this.secondFileName = file.getName();
+
+		int indexForSub = secondFileName.indexOf('.');
+		this.secondFileExtension = secondFileName.substring(indexForSub + 1);
+		this.secondFileLocation = secondCurrentFile.getPath();
+
+		this.secondCurrentFile = file;
+		setConfig();
 	}
 
 	private String parseJsonConfig(){
