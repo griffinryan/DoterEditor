@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="500.0" prefWidth="750.0" styleClass="gridpane-theme" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox styleClass="gridpane-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <SplitPane dividerPositions="0.273" styleClass="gridpane-theme" HBox.hgrow="ALWAYS">
+              <items>
+                <AnchorPane styleClass="gridpane-theme">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="-72.0" layoutY="-51.0" styleClass="gridpane-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" styleClass="gridpane-theme">
+                                 <children>
+                                    <TreeView fx:id="tree" styleClass="gridpane-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                            </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane styleClass="gridpane-theme">
+                     <children>
+                        <ScrollPane fx:id="content" fitToHeight="true" fitToWidth="true" layoutX="-32.0" layoutY="-62.0" prefHeight="200.0" prefWidth="200.0" styleClass="gridpane-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
