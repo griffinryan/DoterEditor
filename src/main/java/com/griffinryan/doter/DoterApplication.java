@@ -6,10 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
+import javafx.scene.paint.*;
 import javafx.stage.Stage;
 
 public class DoterApplication extends Application {
@@ -46,7 +43,7 @@ public class DoterApplication extends Application {
 		explorerPane.setMaxSize(200,600);
 		editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
 
-		LinearGradient paint = niceColor();
+		Color paint = ghost5();
 		BackgroundFill bf = new BackgroundFill(paint,null,null);
 		Background bg = new Background(bf);
 		explorerPane.setBackground(bg);
@@ -65,10 +62,64 @@ public class DoterApplication extends Application {
 
 	private LinearGradient niceColor() {
 		return new LinearGradient(
-				0.6152, 0.285, 0.4608, 0.5416, true, CycleMethod.NO_CYCLE,
-				new Stop(0.0, new Color(0.29, 0.7054, 1.0, 1.0)),
-				new Stop(0.0067, new Color(0.29, 0.7054, 1.0, 1.0)),
-				new Stop(1.0, new Color(1.0, 0.29, 0.5406, 1.0)));
+				0.6152, 0.285, 0.4608, 0.5416, true, CycleMethod.REFLECT,
+				new Stop(0.0, new Color(0.29, 0.7054, 1.0, 0.5)),
+				new Stop(0.0067, new Color(0.29, 0.7054, 1.0, 0.5)),
+				new Stop(1.0, new Color(1.0, 0.29, 0.5406, 0.5)));
+	}
+
+	private LinearGradient blue1() {
+		LinearGradient paint = new LinearGradient(
+				0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
+				new Stop(0.0, new Color(1.0, 1.0, 1.0, 1.0)),
+				new Stop(1.0, new Color(0.0, 0.536, 1.0, 0.88)));
+		return paint;
+	}
+
+	private LinearGradient blue2() {
+		LinearGradient paint = new LinearGradient(
+				0.1235, 0.5653, 0.8432, 0.848, true, CycleMethod.NO_CYCLE,
+				new Stop(0.0, new Color(1.0, 1.0, 1.0, 1.0)),
+				new Stop(1.0, new Color(0.0, 0.536, 1.0, 0.88)));
+		return paint;
+	}
+
+	private LinearGradient ghost1(){
+		LinearGradient paint = new LinearGradient(
+				0.2518, 0.0, 1.0, 0.848, true, CycleMethod.NO_CYCLE,
+				new Stop(0.0, new Color(1.0, 1.0, 1.0, 0.0)),
+				new Stop(1.0, new Color(0.0, 0.7568, 1.0, 1.0)));
+
+		return paint;
+	}
+
+	private LinearGradient ghost2() {
+		LinearGradient paint = new LinearGradient(
+				0.2518, 0.0, 1.0, 0.848, true, CycleMethod.NO_CYCLE,
+				new Stop(0.0, new Color(1.0, 1.0, 1.0, 0.0)),
+				new Stop(1.0, new Color(1.0, 0.0, 0.4483, 1.0)));
+		return paint;
+	}
+
+	private LinearGradient ghost3() {
+		LinearGradient paint = new LinearGradient(
+				0.2518, 0.0, 1.0, 0.848, true, CycleMethod.NO_CYCLE,
+				new Stop(0.0, new Color(1.0, 1.0, 1.0, 1.0)),
+				new Stop(1.0, new Color(0.88, 0.0, 0.3667, 1.0)));
+		return paint;
+	}
+
+	private LinearGradient ghost4() {
+		LinearGradient paint = new LinearGradient(
+				1.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE,
+				new Stop(0.0, new Color(0.0, 0.0, 0.0, 1.0)),
+				new Stop(1.0, new Color(1.0, 1.0, 1.0, 1.0)));
+		return paint;
+	}
+
+	private Color ghost5(){
+		Color paint = new Color(0.1176, 0.1176, 0.1176, 1.0);
+		return paint;
 	}
 
 }
