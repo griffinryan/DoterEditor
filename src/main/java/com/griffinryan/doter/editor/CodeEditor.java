@@ -8,18 +8,16 @@ import java.io.File;
 public class CodeEditor extends EditorTool {
 
 	private final MonacoFX monaco;
-	private final Workspace codeWorkspace;
 
 	public CodeEditor(Workspace theWorkspace){
-		this.codeWorkspace = theWorkspace;
 
-		if(codeWorkspace.isHasRecent()){
+		if(theWorkspace.isHasRecent()){
 			this.monaco = new MonacoFX();
 			this.monaco.getEditor().setCurrentTheme("vs-dark");
-			this.monaco.getEditor().setCurrentLanguage(codeWorkspace.getFileExtension());
+			this.monaco.getEditor().setCurrentLanguage(theWorkspace.getFileExtension());
 
 			/* parse last opened file for MonacoFX editor node. */
-			File toParse = new File(this.codeWorkspace.getFileLocation());
+			File toParse = new File(theWorkspace.getFileLocation());
 			String parsed = this.saveFileToString(toParse);
 
 			/*	Set document to last opened file. */

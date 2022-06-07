@@ -1,10 +1,8 @@
 package com.griffinryan.doter.gui;
 
-import com.griffinryan.doter.DoterApplication;
 import com.griffinryan.doter.editor.CodeEditor;
 import com.griffinryan.doter.editor.EditorTool;
 import com.griffinryan.doter.editor.Workspace;
-import eu.mihosoft.monacofx.Document;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -19,44 +17,30 @@ public class DoterMenu extends EditorTool {
 	private Menu fileMenu;
 	private Menu editMenu;
 	private FileChooser fileChooser;
-	private DirectoryChooser directoryChooser;
 
 	private MenuItem newFile;
 	private MenuItem newProject;
 	private MenuItem openFile;
-	private MenuItem openFileInPane;
 	private MenuItem openProject;
 	private MenuItem saveAsFile;
 	private MenuItem saveFile;
 	private MenuItem openSettings;
 	private MenuItem closeProgram;
-	private MenuBar menuBar;
+	private final MenuBar menuBar;
 
 	private Workspace workspace;
 	private CodeEditor editor;
-	private CodeEditor secondEditor;
-	private boolean hasSplitPane;
 
 	public DoterMenu(Stage stage, Workspace workspace) {
 		this.fileChooser = new FileChooser();
 		this.setWorkspace(workspace);
 		this.editor = new CodeEditor(this.workspace);
 
-		if(hasSplitPane){
-			Workspace tempWorkspace = this.workspace;
-
-			File splitPaneFile = new File("farts");
-			tempWorkspace.setCurrentFile(splitPaneFile);
-			this.secondEditor = new CodeEditor(tempWorkspace);
-
-		}
-
 		createMenuItems();
 
 		this.newFile.setOnAction(e -> openWindow("New File", stage));
 		this.newProject.setOnAction(e -> openWindow("New Project", stage));
 		this.openFile.setOnAction(e -> openWindow("Open File", stage));
-		this.openFileInPane.setOnAction(e -> openWindow("Open File In Pane", stage));
 		this.openProject.setOnAction(e -> openWindow("Open Project", stage));
 		this.openSettings.setOnAction(e -> openWindow("Open Settings", stage));
 		this.saveAsFile.setOnAction(e -> openWindow("Save As", stage));
@@ -70,7 +54,7 @@ public class DoterMenu extends EditorTool {
 
 	public void openWindow(String type, Stage stage) {
 		this.fileChooser = new FileChooser();
-		this.directoryChooser = new DirectoryChooser();
+		DirectoryChooser directoryChooser = new DirectoryChooser();
 		File file = null;
 
 		switch (type) {
@@ -86,15 +70,9 @@ public class DoterMenu extends EditorTool {
 				this.fileChooser.setTitle("Open File..."); // set operation title.
 				file = this.fileChooser.showOpenDialog(stage);    // save operation.
 
+				this.workspace.setCurrentFile(file);
 				String document = saveFileToString(file);
 				setEditorDocument(document);
-			}
-			case "Open File In Pane" -> {
-				this.fileChooser.setTitle("Open File..."); // set operation title.
-				File secondFile = this.fileChooser.showOpenDialog(stage);    // save operation.
-
-				String document = saveFileToString(secondFile);
-				openPaneWithEditor(document, file);
 			}
 			case "Save As" -> {
 				this.fileChooser.setInitialFileName(workspace.getFileExtension());
@@ -114,13 +92,13 @@ public class DoterMenu extends EditorTool {
 				saveStringToFile(parsed, file);
 			}
 			case "Open Project" -> {
-				this.directoryChooser.setTitle("Open Project...");
-				file = this.directoryChooser.showDialog(stage);
+				directoryChooser.setTitle("Open Project...");
+				file = directoryChooser.showDialog(stage);
 				setEditorDocument("");
 			}
 			case "New Project" -> {
-				this.directoryChooser.setTitle("Create New Project...");
-				file = this.directoryChooser.showDialog(stage);
+				directoryChooser.setTitle("Create New Project...");
+				file = directoryChooser.showDialog(stage);
 				setEditorDocument("");
 			}
 		}
@@ -138,16 +116,6 @@ public class DoterMenu extends EditorTool {
 		this.editor.getMonaco().getEditor().getDocument().setText(document);
 	}
 
-	public void openPaneWithEditor(String document, File file){
-		this.hasSplitPane = true;
-		Document doc = new Document();
-		doc.setText(document);
-		secondEditor.getMonaco().getEditor().setDocument(doc);
-
-		this.workspace.setSplitPaneProperties(file);
-		DoterApplication.launch();
-	}
-
 
 	public String parseDocument(CodeEditor editor){
 		return editor.getMonaco().getEditor().getDocument().getText();
@@ -159,7 +127,6 @@ public class DoterMenu extends EditorTool {
 		this.newFile = new MenuItem("New File...");
 		this.newProject = new MenuItem("New Project...");
 		this.openFile = new MenuItem("Open File...");
-		this.openFileInPane = new MenuItem("Open File in New Pane...");
 		this.openProject = new MenuItem("Open Project...");
 		this.saveFile = new MenuItem("Save...");
 		this.saveAsFile = new MenuItem("Save As...");
@@ -171,7 +138,6 @@ public class DoterMenu extends EditorTool {
 		this.fileMenu.getItems().add(this.newProject);
 		this.fileMenu.getItems().add(new SeparatorMenuItem());
 		this.fileMenu.getItems().add(this.openFile);
-		this.fileMenu.getItems().add(this.openFileInPane);
 		this.fileMenu.getItems().add(this.openProject);
 		this.fileMenu.getItems().add(new SeparatorMenuItem());
 		this.fileMenu.getItems().add(this.saveFile);
@@ -200,13 +166,5 @@ public class DoterMenu extends EditorTool {
 
 	public Workspace getWorkspace() {
 		return workspace;
-	}
-
-	public CodeEditor getSecondEditor() {
-		return secondEditor;
-	}
-
-	public boolean isHasSplitPane() {
-		return hasSplitPane;
 	}
 }

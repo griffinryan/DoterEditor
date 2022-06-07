@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 
 public class DoterApplication extends Application {
 
-	private static final int INITIAL_WIDTH = 1200;
-	private static final int INITIAL_HEIGHT = 720;
+	private static final int INITIAL_WIDTH = 1000;
+	private static final int INITIAL_HEIGHT = 600;
 
 	public static void main(String[] args) {
 		launch();
@@ -19,12 +19,16 @@ public class DoterApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws RuntimeException {
+
 		/* Create a new MonacoFX editor node and SplitPane to use. */
 		Workspace applicationWorkspace = new Workspace();
+
 		if(applicationWorkspace.isHasRecent()){
+			/* Return to previous session. */
 
 		} else {
-			// create first-time startup
+			/* Create first-time session at startup. */
+
 		}
 
 		SplitPane editorPane = new SplitPane();
@@ -36,11 +40,7 @@ public class DoterApplication extends Application {
 		DoterMenu appMenu = new DoterMenu(primaryStage, applicationWorkspace);
 
 		explorerPane.setMaxSize(200,600);
-		if(appMenu.isHasSplitPane()){
-			editorPane.getItems().addAll(appMenu.getEditor().getMonaco(), appMenu.getSecondEditor().getMonaco());
-		} else {
-			editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
-		}
+		editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
 
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
@@ -50,7 +50,7 @@ public class DoterApplication extends Application {
 		// the usual scene & stage setup
 		Scene scene = new Scene(parentPane, INITIAL_WIDTH,INITIAL_HEIGHT);
 		//if(appMenu.)
-		primaryStage.setTitle("Doter Editor");
+		primaryStage.setTitle("Doter Editor - " + appMenu.getWorkspace().getFileName());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

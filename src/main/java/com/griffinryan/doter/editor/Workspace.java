@@ -14,20 +14,14 @@ import java.util.Map;
 public class Workspace {
 
 	private File currentFile;
-	private File secondCurrentFile;
-
 	private String fileName;
 	private String fileLocation;
 	private String directoryName;
 	private String directoryLocation;
 	private String fileExtension;
-	private String secondFileName;
-	private String secondFileLocation;
-	private String secondFileExtension;
 	private Map<String, String> propertyMap;
 
 	private JSONObject jsonFile;
-	private String savedDocument;
 	private boolean hasRecent;
 
 	public Workspace() {
@@ -65,16 +59,13 @@ public class Workspace {
 		propertyMap.put("fileLocation", this.fileLocation);
 		propertyMap.put("directoryLocation", this.directoryLocation);
 		propertyMap.put("fileExtension", this.fileExtension);
-		propertyMap.put("secondFileName", this.secondFileName);
-		propertyMap.put("secondFileLocation", this.secondFileLocation);
-		propertyMap.put("secondFileExtension", this.secondFileExtension);
 		this.jsonFile = new JSONObject(this.propertyMap);
 
 		String home = System.getProperty("user.home");
 		File dir = new File(home + "/.config/doter");
 
 		if(!dir.exists()){
-			boolean configExists = dir.mkdir();
+			dir.mkdir();
 		}
 		File file = new File(dir, "doter.json");
 
@@ -105,7 +96,7 @@ public class Workspace {
 		File dir = new File(home + "/.config/doter");
 
 		if(!dir.exists()){
-			boolean configExists = dir.mkdir();
+			dir.mkdir();
 		}
 		File file = new File(dir, "doter.json");
 
@@ -121,17 +112,6 @@ public class Workspace {
 
 		writer.flush();
 		writer.close();
-	}
-
-	public void setSplitPaneProperties(File file){
-		this.secondFileName = file.getName();
-
-		int indexForSub = secondFileName.indexOf('.');
-		this.secondFileExtension = secondFileName.substring(indexForSub + 1);
-		this.secondFileLocation = secondCurrentFile.getPath();
-
-		this.secondCurrentFile = file;
-		setConfig();
 	}
 
 	private String parseJsonConfig(){
@@ -196,11 +176,7 @@ public class Workspace {
 		return hasRecent;
 	}
 
-	public Map<String, String> getPropertyMap() {
-		return propertyMap;
-	}
-
-	public void setPropertyMap(Map<String, String> propertyMap) {
-		this.propertyMap = propertyMap;
+	public String getFileName() {
+		return fileName;
 	}
 }
