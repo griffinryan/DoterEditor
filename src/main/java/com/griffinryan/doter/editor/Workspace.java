@@ -20,23 +20,10 @@ public class Workspace {
 	private JSONObject jsonFile;
 	private String savedDocument;
 	private boolean hasRecent;
-	/*
-	* YOU ARE INSTANTIATING THE WRONG CONSTRUCTOR
-	* FOR WORKSPACE() OBJECT.
-	*
-	* THAT'S WHY IT IS NOT WRITING TO A
-	* .json FILE. MAKE A NEW CONSTRUCTOR FOR
-	* WORKSPACE() CLASS WITHOUT ARGS.
-	*
-	* public Workspace(){
-	* 		// NO ARGS HERE!!! :)
-	* }
-	*
-	* */
 
 	public Workspace() {
 		checkHasRecent();
-		jsonFile = new JSONObject();
+		this.jsonFile = new JSONObject();
 
 		if(!hasRecent){
 			/* Create a new /~/.config/doter/doter.json file. */
@@ -48,10 +35,38 @@ public class Workspace {
 
 		} else {
 			/* Parse in existing /~/.config/doter/doter.json file. */
-			int farts;	/*	TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: TO-DO: */
-
+			this.fileName = this.jsonFile.getString("fileName");
+			this.fileLocation = this.jsonFile.getString("fileLocation");
+			this.directoryName = this.jsonFile.getString("directoryName");
+			this.directoryLocation = this.jsonFile.getString("directoryLocation");
+			this.fileExtension = this.jsonFile.getString("fileExtension");
+			this.currentFile = new File(this.fileName);
 		}
 
+	}
+
+	private void createConfig() throws IOException {
+		this.jsonFile.put("fileName", "void");
+		this.jsonFile.put("directoryName", "void");
+		this.jsonFile.put("fileLocation", "void");
+		this.jsonFile.put("directoryLocation", "void");
+		this.jsonFile.put("fileExtension", "void");
+
+		boolean configExists;
+		String home = System.getProperty("user.home");
+		File dir = new File(home + "/.config/doter");
+
+		if(!dir.exists()){
+			configExists = dir.mkdir();
+		}
+		File file = new File(dir, "doter.json");
+
+		//File file = new File("doter.json");
+		PrintWriter writer = new PrintWriter(file);
+		writer.println(this.jsonFile.toString());
+
+		writer.flush();
+		writer.close();
 	}
 
 	/*
@@ -80,30 +95,6 @@ public class Workspace {
 			this.fileExtension = jsonFile.getString("fileExtension");
 		}
 	}	*/
-
-	private void createConfig() throws IOException {
-		this.jsonFile.put("fileName", "void");
-		this.jsonFile.put("directoryName", "void");
-		this.jsonFile.put("fileLocation", "void");
-		this.jsonFile.put("directoryLocation", "void");
-		this.jsonFile.put("fileExtension", "void");
-
-		boolean configExists;
-		String home = System.getProperty("user.home");
-		File dir = new File(home + "/.config/doter");
-
-		if(!dir.exists()){
-			configExists = dir.mkdir();
-		}
-		File file = new File(dir, "doter.json");
-
-		//File file = new File("doter.json");
-		PrintWriter writer = new PrintWriter(file);
-		writer.println(this.jsonFile.toString());
-
-		writer.flush();
-		writer.close();
-	}
 
 	private JSONObject parsejsonConfig(){
 		File file = new File("doter.json");

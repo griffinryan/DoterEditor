@@ -93,7 +93,7 @@ public class DoterMenu {
 
 				file = this.fileChooser.showSaveDialog(stage);
 				String parsed = parseDocument(this.editor);
-				saveStringtoFile(parsed, file);
+				saveStringToFile(parsed, file);
 			}
 			case "Save" -> {
 				this.fileChooser.setInitialFileName(workspace.getFileExtension());
@@ -102,7 +102,7 @@ public class DoterMenu {
 				String filePath = this.workspace.getFileLocation();
 				file = new File(filePath);
 				String parsed = parseDocument(this.editor);
-				saveStringtoFile(parsed, file);
+				saveStringToFile(parsed, file);
 			}
 			case "Open Project" -> {
 				this.directoryChooser.setTitle("Open Project...");
@@ -133,7 +133,7 @@ public class DoterMenu {
 		return editor.getMonaco().getEditor().getDocument().getText();
 	}
 
-	private void saveStringtoFile(String parsed, File file){
+	private void saveStringToFile(String parsed, File file){
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(file);
