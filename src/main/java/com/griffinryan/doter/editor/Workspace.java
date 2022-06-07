@@ -1,9 +1,12 @@
 package com.griffinryan.doter.editor;
 
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonStreamParser;
+import org.json.JSONArray;
+import org.json.JSONWriter;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -12,18 +15,20 @@ import java.nio.file.Path;
 public class Workspace {
 
 	private File currentFile;
+
 	private String fileName;
 	private String fileLocation;
 	private String directoryName;
 	private String directoryLocation;
 	private String fileExtension;
-	private JSONObject jsonFile;
+
+	private JSONArray jsonFile;
 	private String savedDocument;
 	private boolean hasRecent;
 
 	public Workspace() {
 		checkHasRecent();
-		this.jsonFile = new JSONObject();
+		this.jsonFile = new JSONArray();
 
 		if(!hasRecent){
 			/* Create a new /~/.config/doter/doter.json file. */
@@ -35,22 +40,28 @@ public class Workspace {
 
 		} else {
 			/* Parse in existing /~/.config/doter/doter.json file. */
-			this.fileName = this.jsonFile.getString("fileName");
-			this.fileLocation = this.jsonFile.getString("fileLocation");
-			this.directoryName = this.jsonFile.getString("directoryName");
-			this.directoryLocation = this.jsonFile.getString("directoryLocation");
-			this.fileExtension = this.jsonFile.getString("fileExtension");
+			String toParse = parseJsonConfig();
+			JsonStreamParser parser = new JsonStreamParser(toParse);
+
+			this.fileLocation = parser.next().getAsJsonObject().get("fileLocation").toString();
+			this.directoryName = parser.next().getAsJsonObject().get("directoryName").toString();
+			this.directoryLocation = parser.next().getAsJsonObject().get("directoryLocation").toString();
+			this.fileExtension = parser.next().getAsJsonObject().get("fileExtension").toString();
+
 			this.currentFile = new File(this.fileName);
 		}
 
 	}
 
 	private void createConfig() throws IOException {
-		this.jsonFile.put("fileName", "void");
-		this.jsonFile.put("directoryName", "void");
-		this.jsonFile.put("fileLocation", "void");
-		this.jsonFile.put("directoryLocation", "void");
-		this.jsonFile.put("fileExtension", "void");
+		this.jsonFile = new JSONArray();
+		JSONWriter
+		this.jsonFile.put()
+		this.jsonFile.addProperty("fileName", "empty");
+		this.jsonFile.addProperty("directoryName", "empty");
+		this.jsonFile.addProperty("fileLocation", "empty");
+		this.jsonFile.addProperty("directoryLocation", "empty");
+		this.jsonFile.addProperty("fileExtension", "empty");
 
 		boolean configExists;
 		String home = System.getProperty("user.home");
@@ -96,12 +107,11 @@ public class Workspace {
 		}
 	}	*/
 
-	private JSONObject parsejsonConfig(){
-		File file = new File("doter.json");
-		String s = saveFileToString(file);
-		JSONObject json = new JSONObject(s);
+	private String parseJsonConfig(){
+		String home = System.getProperty("user.home");
+		File file = new File(home + "/.config/doter/doter.json");
 
-		return json;
+		return saveFileToString(file);
 	}
 
 	private String saveFileToString(File file){
@@ -183,57 +193,12 @@ public class Workspace {
 		this.fileExtension = fileExtension;
 	}
 
-	public JSONObject getJsonFile() {
+	public JsonObject getJsonFile() {
 		return jsonFile;
 	}
 
-	public void setJsonFile(JSONObject jsonFile) {
+	public void setJsonFile(JsonObject jsonFile) {
 		this.jsonFile = jsonFile;
-	}
-
-	public String getjsonFileName(){
-		String name = this.jsonFile.getString("fileName");
-		return name;
-	}
-
-	public String getjsonFileLocation(){
-		String location = this.jsonFile.getString("fileLocation");
-		return location;
-	}
-
-	public String getjsonDirectoryName(){
-		String name = this.jsonFile.getString("directoryName");
-		return name;
-	}
-
-	public String getjsonDirectoryLocation(){
-		String location = this.jsonFile.getString("directoryLocation");
-		return location;
-	}
-
-	public String getjsonFileExtension(){
-		String extension = this.jsonFile.getString("fileExtension");
-		return extension;
-	}
-
-	public void setjsonFileName(String s){
-		this.jsonFile.put("fileName", s);
-	}
-
-	public void setjsonFileLocation(String s){
-		this.jsonFile.put("fileLocation", s);
-	}
-
-	public void setjsonDirectoryName(String s){
-		this.jsonFile.put("directoryName", s);
-	}
-
-	public void setjsonDirectoryLocation(String s){
-		this.jsonFile.put("directoryLocation", s);
-	}
-
-	public void setjsonFileExtension(String s){
-		this.jsonFile.put("fileExtension", s);
 	}
 
 	public boolean isHasRecent() {
