@@ -6,6 +6,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 
 public class DoterApplication extends Application {
@@ -42,9 +46,10 @@ public class DoterApplication extends Application {
 		explorerPane.setMaxSize(200,600);
 		editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
 
-		BackgroundImage bi = new BackgroundImage();
-		Background bg = new Background();
-		explorerPane.setBackground();
+		LinearGradient paint = niceColor();
+		BackgroundFill bf = new BackgroundFill(paint,null,null);
+		Background bg = new Background(bf);
+		explorerPane.setBackground(bg);
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
 
@@ -56,6 +61,14 @@ public class DoterApplication extends Application {
 		primaryStage.setTitle("Doter Editor - " + appMenu.getWorkspace().getFileName());
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+	private LinearGradient niceColor() {
+		return new LinearGradient(
+				0.6152, 0.285, 0.4608, 0.5416, true, CycleMethod.NO_CYCLE,
+				new Stop(0.0, new Color(0.29, 0.7054, 1.0, 1.0)),
+				new Stop(0.0067, new Color(0.29, 0.7054, 1.0, 1.0)),
+				new Stop(1.0, new Color(1.0, 0.29, 0.5406, 1.0)));
 	}
 
 }
