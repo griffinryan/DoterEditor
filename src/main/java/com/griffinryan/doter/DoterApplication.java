@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 public class DoterApplication extends Application {
 
-	private static final int INITIAL_WIDTH = 1000;
-	private static final int INITIAL_HEIGHT = 600;
+	private static final int INITIAL_WIDTH = 850;
+	private static final int INITIAL_HEIGHT = 500;
 
 	public static void main(String[] args) {
 		launch();
