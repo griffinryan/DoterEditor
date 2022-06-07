@@ -34,7 +34,7 @@ public class Workspace {
 
 	public Workspace() {
 		checkHasRecent();
-		this.jsonFile = new JSONArray();
+		this.jsonFile = new JSONObject();
 
 		if(!hasRecent){
 			/* Create a new /~/.config/doter/doter.json file. */
@@ -47,16 +47,14 @@ public class Workspace {
 		} else {
 			/* Parse in existing /~/.config/doter/doter.json file. */
 			String toParse = parseJsonConfig();
-			this.jsonFile = new JSONArray(toParse);
-			JSONObject l = jsonFile.toJSONObject();
-			HashMap<String,String> h =
+			this.jsonFile = new JSONObject(toParse);
 			this.propertyMap = new HashMap<>(5);
 
-			propertyMap.put("fileName", jsonFile.get(0).toString());
-			propertyMap.put("directoryName", jsonFile.get(1).toString());
-			propertyMap.put("fileLocation", jsonFile.get(2).toString());
-			propertyMap.put("directoryLocation", jsonFile.get(3).toString());
-			propertyMap.put("fileExtension", jsonFile.get(4).toString());
+			propertyMap.put("fileName", jsonFile.getString("fileName"));
+			propertyMap.put("directoryName", jsonFile.getString("directoryName"));
+			propertyMap.put("fileLocation", jsonFile.getString("fileLocation"));
+			propertyMap.put("directoryLocation", jsonFile.getString("directoryLocation"));
+			propertyMap.put("fileExtension", jsonFile.getString("fileExtension"));
 			this.fileName = propertyMap.get("fileName");
 			this.fileLocation = propertyMap.get("fileLocation");
 			this.directoryName = propertyMap.get("directoryName");
@@ -72,14 +70,13 @@ public class Workspace {
 	}
 
 	private void createConfig() throws IOException {
-		this.jsonFile = new JSONObject();
 		propertyMap = new HashMap<>(5);
-
-		jsonFile.put("fileName", "empty");
-		jsonFile.put("directoryName", "empty");
-		jsonFile.put("fileLocation", "empty");
-		jsonFile.put("directoryLocation", "empty");
-		jsonFile.put("fileExtension", "empty");
+		propertyMap.put("fileName", "empty");
+		propertyMap.put("directoryName", "empty");
+		propertyMap.put("fileLocation", "empty");
+		propertyMap.put("directoryLocation", "empty");
+		propertyMap.put("fileExtension", "empty");
+		this.jsonFile = new JSONObject(propertyMap);
 
 		String home = System.getProperty("user.home");
 		File dir = new File(home + "/.config/doter");
@@ -210,11 +207,11 @@ public class Workspace {
 		this.fileExtension = fileExtension;
 	}
 
-	public JSONArray getJsonFile() {
+	public JSONObject getJsonFile() {
 		return jsonFile;
 	}
 
-	public void setJsonFile(JSONArray jsonFile) {
+	public void setJsonFile(JSONObject jsonFile) {
 		this.jsonFile = jsonFile;
 	}
 
