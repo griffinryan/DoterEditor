@@ -42,6 +42,9 @@ public class DoterApplication extends Application {
 		explorerPane.setMaxSize(200,600);
 		editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
 
+		BackgroundImage bi = new BackgroundImage();
+		Background bg = new Background();
+		explorerPane.setBackground();
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
 
