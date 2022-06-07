@@ -14,34 +14,47 @@ import java.io.File;
 
 public class DoterMenu extends EditorTool {
 
-	public Menu fileMenu;
-	public Menu editMenu;
-	public FileChooser fileChooser;
-	public DirectoryChooser directoryChooser;
+	private Menu fileMenu;
+	private Menu editMenu;
+	private FileChooser fileChooser;
+	private DirectoryChooser directoryChooser;
 
-	public MenuItem newFile;
-	public MenuItem newProject;
-	public MenuItem openFile;
-	public MenuItem openProject;
-	public MenuItem saveAsFile;
-	public MenuItem saveFile;
-	public MenuItem openSettings;
-	public MenuItem closeProgram;
-	public MenuBar menuBar;
+	private MenuItem newFile;
+	private MenuItem newProject;
+	private MenuItem openFile;
+	private MenuItem openFileInPane;
+	private MenuItem openProject;
+	private MenuItem saveAsFile;
+	private MenuItem saveFile;
+	private MenuItem openSettings;
+	private MenuItem closeProgram;
+	private MenuBar menuBar;
 
 	private Workspace workspace;
 	private CodeEditor editor;
+	private CodeEditor secondEditor;
+	private boolean hasSplitPane;
 
 	public DoterMenu(Stage stage, Workspace workspace) {
 		this.fileChooser = new FileChooser();
 		this.setWorkspace(workspace);
 		this.editor = new CodeEditor(this.workspace);
 
+		if(hasSplitPane){
+			Workspace tempWorkspace = this.workspace;
+
+			File splitPaneFile = new File("farts");
+			tempWorkspace.setCurrentFile(splitPaneFile);
+			this.secondEditor = new CodeEditor(tempWorkspace);
+
+		}
+
 		createMenuItems();
 
 		this.newFile.setOnAction(e -> openWindow("New File", stage));
 		this.newProject.setOnAction(e -> openWindow("New Project", stage));
 		this.openFile.setOnAction(e -> openWindow("Open File", stage));
+		this.openFileInPane.setOnAction(e -> openWindow("Open File In Pane", stage));
 		this.openProject.setOnAction(e -> openWindow("Open Project", stage));
 		this.openSettings.setOnAction(e -> openWindow("Open Settings", stage));
 		this.saveAsFile.setOnAction(e -> openWindow("Save As", stage));
@@ -73,6 +86,13 @@ public class DoterMenu extends EditorTool {
 
 				String document = saveFileToString(file);
 				setEditorDocument(document);
+			}
+			case "Open File In Pane" -> {
+				this.fileChooser.setTitle("Open File..."); // set operation title.
+				file = this.fileChooser.showOpenDialog(stage);    // save operation.
+
+				String document = saveFileToString(file);
+				openPaneWithEditor(document);
 			}
 			case "Save As" -> {
 				this.fileChooser.setInitialFileName(workspace.getFileExtension());
@@ -116,6 +136,8 @@ public class DoterMenu extends EditorTool {
 		this.editor.getMonaco().getEditor().getDocument().setText(document);
 	}
 
+
+
 	public String parseDocument(CodeEditor editor){
 		return editor.getMonaco().getEditor().getDocument().getText();
 	}
@@ -126,6 +148,7 @@ public class DoterMenu extends EditorTool {
 		this.newFile = new MenuItem("New File...");
 		this.newProject = new MenuItem("New Project...");
 		this.openFile = new MenuItem("Open File...");
+		this.openFileInPane = new MenuItem("Open File in New Pane...");
 		this.openProject = new MenuItem("Open Project...");
 		this.saveFile = new MenuItem("Save...");
 		this.saveAsFile = new MenuItem("Save As...");
@@ -137,6 +160,7 @@ public class DoterMenu extends EditorTool {
 		this.fileMenu.getItems().add(this.newProject);
 		this.fileMenu.getItems().add(new SeparatorMenuItem());
 		this.fileMenu.getItems().add(this.openFile);
+		this.fileMenu.getItems().add(this.openFileInPane);
 		this.fileMenu.getItems().add(this.openProject);
 		this.fileMenu.getItems().add(new SeparatorMenuItem());
 		this.fileMenu.getItems().add(this.saveFile);
@@ -161,5 +185,17 @@ public class DoterMenu extends EditorTool {
 
 	public void setEditor(CodeEditor editor) {
 		this.editor = editor;
+	}
+
+	public Workspace getWorkspace() {
+		return workspace;
+	}
+
+	public CodeEditor getSecondEditor() {
+		return secondEditor;
+	}
+
+	public boolean isHasSplitPane() {
+		return hasSplitPane;
 	}
 }

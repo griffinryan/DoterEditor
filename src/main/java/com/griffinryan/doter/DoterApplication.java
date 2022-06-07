@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 
 public class DoterApplication extends Application {
 
-	private static final int INITIAL_WIDTH = 1920;
-	private static final int INITIAL_HEIGHT = 1080;
+	private static final int INITIAL_WIDTH = 1200;
+	private static final int INITIAL_HEIGHT = 720;
 
 	public static void main(String[] args) {
 		launch();
@@ -27,15 +27,20 @@ public class DoterApplication extends Application {
 			// create first-time startup
 		}
 
-		StackPane editorPane = new StackPane();
+		SplitPane editorPane = new SplitPane();
 		StackPane explorerPane = new StackPane();
 		BorderPane parentPane = new BorderPane();
 		SplitPane pane = new SplitPane();
+		editorPane.setDividerPosition(0, 10);
 
 		DoterMenu appMenu = new DoterMenu(primaryStage, applicationWorkspace);
 
 		explorerPane.setMaxSize(200,600);
-		editorPane.getChildren().add(appMenu.getEditor().getMonaco());
+		if(appMenu.isHasSplitPane()){
+			editorPane.getItems().addAll(appMenu.getEditor().getMonaco(), appMenu.getSecondEditor().getMonaco());
+		} else {
+			editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
+		}
 
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
@@ -44,7 +49,8 @@ public class DoterApplication extends Application {
 		parentPane.setCenter(pane);
 		// the usual scene & stage setup
 		Scene scene = new Scene(parentPane, INITIAL_WIDTH,INITIAL_HEIGHT);
-		primaryStage.setTitle("Doter Editor - example.java");
+		//if(appMenu.)
+		primaryStage.setTitle("Doter Editor");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
