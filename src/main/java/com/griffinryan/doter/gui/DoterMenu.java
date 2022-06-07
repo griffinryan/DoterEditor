@@ -143,6 +143,7 @@ public class DoterMenu extends EditorTool {
 		doc.setText(document);
 		secondEditor.getMonaco().getEditor().setDocument(doc);
 
+		this.workspace.setSplitPaneProperties(file);
 
 	}
 

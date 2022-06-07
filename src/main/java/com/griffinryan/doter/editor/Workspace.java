@@ -1,12 +1,6 @@
 package com.griffinryan.doter.editor;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonStreamParser;
-import com.google.gson.internal.bind.JsonTreeWriter;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +9,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Workspace {
@@ -130,7 +123,7 @@ public class Workspace {
 		writer.close();
 	}
 
-	private void setSecondCurrentFile(File file){
+	public void setSplitPaneProperties(File file){
 		this.secondFileName = file.getName();
 
 		int indexForSub = secondFileName.indexOf('.');
