@@ -25,7 +25,7 @@ public class EditorTool{
 		return editor.getMonaco().getEditor().getDocument().getText();
 	}
 
-	private void saveStringToFile(String parsed, File file){
+	public void saveStringToFile(String parsed, File file){
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(file);
@@ -37,7 +37,7 @@ public class EditorTool{
 		}
 	}
 
-	private String saveFileToString(File file){
+	public String saveFileToString(File file){
 		String result = "";
 		Path filePath = file.toPath();
 		try {

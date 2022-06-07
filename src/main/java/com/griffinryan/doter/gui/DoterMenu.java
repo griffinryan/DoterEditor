@@ -3,7 +3,6 @@ package com.griffinryan.doter.gui;
 import com.griffinryan.doter.editor.CodeEditor;
 import com.griffinryan.doter.editor.EditorTool;
 import com.griffinryan.doter.editor.Workspace;
-import eu.mihosoft.monacofx.MonacoFX;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -11,15 +10,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DoterMenu extends EditorTool {
 
@@ -40,8 +31,6 @@ public class DoterMenu extends EditorTool {
 
 	private Workspace workspace;
 	private CodeEditor editor;
-
-	String fileExtensionName;
 
 	public DoterMenu(Stage stage, Workspace workspace) {
 		this.fileChooser = new FileChooser();
@@ -67,7 +56,6 @@ public class DoterMenu extends EditorTool {
 	public void openWindow(String type, Stage stage) {
 		this.fileChooser = new FileChooser();
 		this.directoryChooser = new DirectoryChooser();
-		MonacoFX tempMonaco = this.editor.getMonaco();
 		File file = null;
 
 		switch (type) {
@@ -132,34 +120,6 @@ public class DoterMenu extends EditorTool {
 		return editor.getMonaco().getEditor().getDocument().getText();
 	}
 
-	private void saveStringToFile(String parsed, File file){
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(file);
-			writer.println(parsed);
-			writer.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			Logger.getLogger(DoterMenu.class.getName()).log(Level.SEVERE, null, e);
-		}
-	}
-
-	private String saveFileToString(File file){
-		String result = "";
-		Path filePath = file.toPath();
-		try {
-			result = Files.readString(filePath);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	public void setFileExtensionName(String s){
-		this.fileExtensionName = " ." + s; // set to .java
-		this.fileChooser.setInitialFileName("App" + fileExtensionName);
-	}
-
 	public void createMenuItems(){
 		this.fileMenu = new Menu("File"); // TO-DO: Add second args
 		this.editMenu = new Menu("Edit"); // for image.
@@ -189,14 +149,6 @@ public class DoterMenu extends EditorTool {
 
 	public MenuBar getMenuBar() {
 		return menuBar;
-	}
-
-	public void setMenuBar(MenuBar menuBar) {
-		this.menuBar = menuBar;
-	}
-
-	public Workspace getWorkspace() {
-		return workspace;
 	}
 
 	public void setWorkspace(Workspace workspace) {
