@@ -7,6 +7,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,6 +28,9 @@ public class DoterMenu extends EditorTool {
 	private MenuItem openSettings;
 	private MenuItem closeProgram;
 	private final MenuBar menuBar;
+
+	private HBox[] explorerDirs;
+	private HBox[] explorerFiles;
 
 	private Workspace workspace;
 	private CodeEditor editor;
