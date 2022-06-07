@@ -81,6 +81,7 @@ dependencies {
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 	implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
 	implementation 'eu.mihosoft.monacofx:monacofx:0.0.7'
+    implementation 'org.jetbrains.pty4j:pty4j:0.12.5'
 
 	implementation configurations.javafxCompile
 
