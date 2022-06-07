@@ -3,7 +3,9 @@ package com.griffinryan.doter.editor;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonStreamParser;
+import com.google.gson.internal.bind.JsonTreeWriter;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONWriter;
 
 import java.io.File;
@@ -11,6 +13,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Workspace {
 
@@ -21,8 +26,9 @@ public class Workspace {
 	private String directoryName;
 	private String directoryLocation;
 	private String fileExtension;
+	private Map<String, String> propertyMap;
 
-	private JSONArray jsonFile;
+	private JSONObject jsonFile;
 	private String savedDocument;
 	private boolean hasRecent;
 
@@ -41,34 +47,45 @@ public class Workspace {
 		} else {
 			/* Parse in existing /~/.config/doter/doter.json file. */
 			String toParse = parseJsonConfig();
-			JsonStreamParser parser = new JsonStreamParser(toParse);
+			this.jsonFile = new JSONArray(toParse);
+			JSONObject l = jsonFile.toJSONObject();
+			HashMap<String,String> h =
+			this.propertyMap = new HashMap<>(5);
 
-			this.fileLocation = parser.next().getAsJsonObject().get("fileLocation").toString();
-			this.directoryName = parser.next().getAsJsonObject().get("directoryName").toString();
-			this.directoryLocation = parser.next().getAsJsonObject().get("directoryLocation").toString();
-			this.fileExtension = parser.next().getAsJsonObject().get("fileExtension").toString();
-
+			propertyMap.put("fileName", jsonFile.get(0).toString());
+			propertyMap.put("directoryName", jsonFile.get(1).toString());
+			propertyMap.put("fileLocation", jsonFile.get(2).toString());
+			propertyMap.put("directoryLocation", jsonFile.get(3).toString());
+			propertyMap.put("fileExtension", jsonFile.get(4).toString());
+			this.fileName = propertyMap.get("fileName");
+			this.fileLocation = propertyMap.get("fileLocation");
+			this.directoryName = propertyMap.get("directoryName");
+			this.directoryLocation = propertyMap.get("directoryLocation");
+			this.fileExtension = propertyMap.get("fileExtension");
 			this.currentFile = new File(this.fileName);
 		}
 
 	}
 
-	private void createConfig() throws IOException {
-		this.jsonFile = new JSONArray();
-		JSONWriter
-		this.jsonFile.put()
-		this.jsonFile.addProperty("fileName", "empty");
-		this.jsonFile.addProperty("directoryName", "empty");
-		this.jsonFile.addProperty("fileLocation", "empty");
-		this.jsonFile.addProperty("directoryLocation", "empty");
-		this.jsonFile.addProperty("fileExtension", "empty");
+	private void saveConfig() throws IOException {
 
-		boolean configExists;
+	}
+
+	private void createConfig() throws IOException {
+		this.jsonFile = new JSONObject();
+		propertyMap = new HashMap<>(5);
+
+		jsonFile.put("fileName", "empty");
+		jsonFile.put("directoryName", "empty");
+		jsonFile.put("fileLocation", "empty");
+		jsonFile.put("directoryLocation", "empty");
+		jsonFile.put("fileExtension", "empty");
+
 		String home = System.getProperty("user.home");
 		File dir = new File(home + "/.config/doter");
 
 		if(!dir.exists()){
-			configExists = dir.mkdir();
+			boolean configExists = dir.mkdir();
 		}
 		File file = new File(dir, "doter.json");
 
@@ -193,11 +210,11 @@ public class Workspace {
 		this.fileExtension = fileExtension;
 	}
 
-	public JsonObject getJsonFile() {
+	public JSONArray getJsonFile() {
 		return jsonFile;
 	}
 
-	public void setJsonFile(JsonObject jsonFile) {
+	public void setJsonFile(JSONArray jsonFile) {
 		this.jsonFile = jsonFile;
 	}
 
