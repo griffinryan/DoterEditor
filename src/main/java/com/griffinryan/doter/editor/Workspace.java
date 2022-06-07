@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.json.JSONWriter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -38,11 +39,7 @@ public class Workspace {
 
 		if(!hasRecent){
 			/* Create a new /~/.config/doter/doter.json file. */
-			try {
-				createConfig();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			createConfig();
 
 		} else {
 			/* Parse in existing /~/.config/doter/doter.json file. */
@@ -65,11 +62,37 @@ public class Workspace {
 
 	}
 
-	private void saveConfig() throws IOException {
+	public void setConfig(){
+		propertyMap.put("fileName", this.fileName);
+		propertyMap.put("directoryName", this.directoryName);
+		propertyMap.put("fileLocation", this.fileLocation);
+		propertyMap.put("directoryLocation", this.directoryLocation);
+		propertyMap.put("fileExtension", this.fileExtension);
+		this.jsonFile = new JSONObject(this.propertyMap);
 
+		String home = System.getProperty("user.home");
+		File dir = new File(home + "/.config/doter");
+
+		if(!dir.exists()){
+			boolean configExists = dir.mkdir();
+		}
+		File file = new File(dir, "doter.json");
+
+		//File file = new File("doter.json");
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		assert writer != null;
+		writer.println(this.jsonFile.toString());
+
+		writer.flush();
+		writer.close();
 	}
 
-	private void createConfig() throws IOException {
+	private void createConfig() {
 		propertyMap = new HashMap<>(5);
 		propertyMap.put("fileName", "empty");
 		propertyMap.put("directoryName", "empty");
@@ -87,39 +110,18 @@ public class Workspace {
 		File file = new File(dir, "doter.json");
 
 		//File file = new File("doter.json");
-		PrintWriter writer = new PrintWriter(file);
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		assert writer != null;
 		writer.println(this.jsonFile.toString());
 
 		writer.flush();
 		writer.close();
 	}
-
-	/*
-	public Workspace(String ext){
-		this.fileExtension = ext;
-	}	*/
-
-	/*public Workspace(String file, String path, String directory, String ext) throws IOException {
-		this.currentFile = new File(file);
-		this.fileName = file;
-		this.fileLocation = path;
-		this.directoryName = directory;
-		this.directoryLocation = path;
-		this.fileExtension = ext;
-		this.hasRecent = checkHasRecent();
-		jsonFile = new JSONObject();
-
-		if(!hasRecent){
-			createConfig();
-		} else{
-			this.jsonFile = parsejsonConfig();
-			this.fileName = jsonFile.getString("fileName");
-			this.fileLocation = jsonFile.getString("fileLocation");
-			this.directoryName = jsonFile.getString("directoryName");
-			this.directoryLocation = jsonFile.getString("directoryLocation");
-			this.fileExtension = jsonFile.getString("fileExtension");
-		}
-	}	*/
 
 	private String parseJsonConfig(){
 		String home = System.getProperty("user.home");
@@ -147,44 +149,20 @@ public class Workspace {
 		hasRecent = !Files.notExists(path);
 	}
 
-	public void instCurrentFile(String s){
-		this.currentFile = new File(s);
-	}
-
-	public String getSavedDocument() {
-		return this.savedDocument;
-	}
-
-	public void setSavedDocument(String savedDocument) {
-		this.savedDocument = savedDocument;
-	}
-
-	public File getCurrentFile() {
-		return currentFile;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
 	public String getFileLocation() {
 		return fileLocation;
 	}
 
-	public String getDirectoryName() {
-		return directoryName;
-	}
-
-	public String getDirectoryLocation() {
-		return directoryLocation;
-	}
-
 	public void setCurrentFile(File currentFile) {
-		this.currentFile = currentFile;
-	}
+		this.fileName = currentFile.getName();
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		int indexForSub = fileName.indexOf('.');
+		this.fileExtension = fileName.substring(indexForSub + 1);
+		this.fileLocation = currentFile.getPath();
+		this.directoryName = currentFile.getParentFile().getName();
+		this.directoryLocation = currentFile.getParentFile().getPath();
+		this.currentFile = currentFile;
+		setConfig();
 	}
 
 	public void setFileLocation(String fileLocation) {
@@ -203,23 +181,15 @@ public class Workspace {
 		return fileExtension;
 	}
 
-	public void setFileExtension(String fileExtension) {
-		this.fileExtension = fileExtension;
-	}
-
-	public JSONObject getJsonFile() {
-		return jsonFile;
-	}
-
-	public void setJsonFile(JSONObject jsonFile) {
-		this.jsonFile = jsonFile;
-	}
-
 	public boolean isHasRecent() {
 		return hasRecent;
 	}
 
-	public void setHasRecent(boolean hasRecent) {
-		this.hasRecent = hasRecent;
+	public Map<String, String> getPropertyMap() {
+		return propertyMap;
+	}
+
+	public void setPropertyMap(Map<String, String> propertyMap) {
+		this.propertyMap = propertyMap;
 	}
 }
