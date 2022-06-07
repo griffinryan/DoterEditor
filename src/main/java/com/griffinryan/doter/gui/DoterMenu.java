@@ -1,6 +1,7 @@
 package com.griffinryan.doter.gui;
 
 import com.griffinryan.doter.editor.CodeEditor;
+import com.griffinryan.doter.editor.EditorTool;
 import com.griffinryan.doter.editor.Workspace;
 import eu.mihosoft.monacofx.MonacoFX;
 import javafx.scene.control.Menu;
@@ -20,7 +21,7 @@ import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DoterMenu {
+public class DoterMenu extends EditorTool {
 
 	public Menu fileMenu;
 	public Menu editMenu;
@@ -41,13 +42,11 @@ public class DoterMenu {
 	private CodeEditor editor;
 
 	String fileExtensionName;
-	String TEMPEXTENSION = "java";
 
-	public DoterMenu(Stage stage, Workspace workspace){
+	public DoterMenu(Stage stage, Workspace workspace) {
 		this.fileChooser = new FileChooser();
-		this.setFileExtensionName(TEMPEXTENSION);
 		this.setWorkspace(workspace);
-		this.editor = new CodeEditor();
+		this.editor = new CodeEditor(this.workspace);
 
 		createMenuItems();
 

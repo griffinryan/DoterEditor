@@ -1,24 +1,31 @@
 package com.griffinryan.doter.editor;
 
+import com.griffinryan.doter.gui.DoterMenu;
+import eu.mihosoft.monacofx.Document;
 import eu.mihosoft.monacofx.MonacoFX;
 
-public class CodeEditor {
+public class CodeEditor extends EditorTool {
 
 	private MonacoFX monaco;
+	private Workspace codeWorkspace;
 
-	public CodeEditor(){
-		this.monaco = new MonacoFX();
-		this.monaco.getEditor().getDocument().setText(
-				"""
-						#include <stdio.h>
-						int main() {
-						   // printf() displays the string inside quotation
-						   printf("Hello, World!");
-						   return 0;
-						}""");
+	public CodeEditor(Workspace codeWorkspace){
 
-		this.monaco.getEditor().setCurrentLanguage("java");
-		this.monaco.getEditor().setCurrentTheme("vs-dark");
+		if(codeWorkspace.isHasRecent()){
+			this.monaco = new MonacoFX();
+			this.monaco.getEditor().setCurrentTheme("vs-dark");
+			this.monaco.getEditor().setCurrentLanguage(codeWorkspace.getFileExtension());
+
+			/*	Set document to last opened file. */
+			Document document = new Document();
+			document.setText();
+			this.monaco.getEditor().setDocument();
+		} else {
+			this.monaco = new MonacoFX();
+			this.monaco.getEditor().setCurrentTheme("vs-dark");
+		}
+
+
 	}
 
 	public MonacoFX getMonaco() {
