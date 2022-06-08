@@ -127,6 +127,7 @@ def expandedTaskList = []
 
 dependencies {
     implementation 'org.json:json:20220320'
+    implementation 'com.google.cloud.tools:jib-maven-plugin:3.2.1'
 }
 
 /*

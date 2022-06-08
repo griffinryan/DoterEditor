@@ -71,6 +71,7 @@ dependencies {
 	implementation 'com.intellij:forms_rt:7.0.3'
 	implementation 'org.gradle:gradle-tooling-api:7.3-20210825160000+0000'
     implementation 'org.json:json:20220320'
+
     javafxCompile 'org.openjfx:javafx-base:18.0.1:win'
 	javafxCompile 'org.openjfx:javafx-graphics:18.0.1:win'
 	javafxCompile 'org.openjfx:javafx-controls:18.0.1:win'
@@ -81,7 +82,7 @@ dependencies {
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 	implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
 	implementation 'eu.mihosoft.monacofx:monacofx:0.0.7'
-    implementation 'org.jetbrains.pty4j:pty4j:0.12.5'
+	implementation 'com.google.cloud.tools:jib-maven-plugin:3.2.1'
 
 	implementation configurations.javafxCompile
 
