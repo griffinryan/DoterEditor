@@ -5,9 +5,12 @@ import com.griffinryan.doter.gui.DoterMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.Stage;
+import javafx.geometry.Side;
 
 public class DoterApplication extends Application {
 
@@ -43,10 +46,16 @@ public class DoterApplication extends Application {
 		explorerPane.setMaxSize(200,600);
 		editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
 
+		Image i = new Image("logo_small.png");
+		ImageView iv = new ImageView(i);
+		iv.fitHeightProperty();
+		iv.fitWidthProperty();
+		explorerPane.getChildren().add(iv);
+
 		Color paint = ghost5();
 		BackgroundFill bf = new BackgroundFill(paint,null,null);
-		Background bg = new Background(bf);
-		explorerPane.setBackground(bg);
+		Background b = new Background(bf);
+		explorerPane.setBackground(b);
 		pane.getItems().addAll(explorerPane, editorPane);
 		pane.setOpacity(1);
 
