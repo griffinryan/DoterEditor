@@ -1,6 +1,6 @@
 # doter
 
-![doter.png](https://torpoisebucket.s3.us-west-2.amazonaws.com/doter.png)
+![doter.png](https://torpoisebucket.s.us-west-2.amazonaws.com/doter.png)
 
 **_Doter: "Dreams of Text Editors Running"_**
 
