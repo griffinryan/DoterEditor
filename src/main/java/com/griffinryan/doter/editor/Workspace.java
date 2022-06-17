@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Workspace {
@@ -20,6 +22,7 @@ public class Workspace {
 	private String directoryLocation;
 	private String fileExtension;
 	private Map<String, String> propertyMap;
+	private String[] projectFileList;
 
 	private JSONObject jsonFile;
 	private boolean hasRecent;
@@ -91,6 +94,9 @@ public class Workspace {
 		propertyMap.put("directoryLocation", "empty");
 		propertyMap.put("fileExtension", "empty");
 		this.jsonFile = new JSONObject(propertyMap);
+
+		int capacity = 1;
+		this.projectFileList = new String[capacity];
 
 		String home = System.getProperty("user.home");
 		File dir = new File(home + "/.config/doter");
