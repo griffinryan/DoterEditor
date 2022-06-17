@@ -22,7 +22,6 @@ public class Workspace {
 	private String directoryLocation;
 	private String fileExtension;
 	private Map<String, String> propertyMap;
-	private String[] projectFileList;
 	private File[] fileGroup;
 	private File currentDirectory;
 
@@ -64,6 +63,8 @@ public class Workspace {
 		propertyMap.put("fileLocation", this.fileLocation);
 		propertyMap.put("directoryLocation", this.directoryLocation);
 		propertyMap.put("fileExtension", this.fileExtension);
+		propertyMap.put("currentDirectory", this.currentDirectory.getName());
+
 		this.jsonFile = new JSONObject(this.propertyMap);
 
 		String home = System.getProperty("user.home");
@@ -95,10 +96,8 @@ public class Workspace {
 		propertyMap.put("fileLocation", "empty");
 		propertyMap.put("directoryLocation", "empty");
 		propertyMap.put("fileExtension", "empty");
+		propertyMap.put("currentDirectory", "empty");
 		this.jsonFile = new JSONObject(propertyMap);
-
-		int capacity = 1;
-		this.projectFileList = new String[capacity];
 
 		String home = System.getProperty("user.home");
 		File dir = new File(home + "/.config/doter");
@@ -153,15 +152,34 @@ public class Workspace {
 	}
 
 	public void setCurrentFile(File currentFile) {
-		this.fileName = currentFile.getName();
 
-		int indexForSub = fileName.indexOf('.');
-		this.fileExtension = fileName.substring(indexForSub + 1);
-		this.fileLocation = currentFile.getPath();
-		this.directoryName = currentFile.getParentFile().getName();
-		this.directoryLocation = currentFile.getParentFile().getPath();
-		this.currentFile = currentFile;
-		setConfig();
+		if(currentFile.isDirectory()){
+
+			this.setCurrentDirectory(currentFile);
+			File[] files = this.currentDirectory.listFiles();
+			assert files != null;
+
+			this.fileGroup = files;
+			this.currentFile = files[0];
+			this.fileName = this.currentFile.getName();
+			int indexForSub = fileName.indexOf('.');
+			this.fileExtension = fileName.substring(indexForSub + 1);
+			this.fileLocation = this.currentFile.getPath();
+			this.directoryName = this.currentFile.getParentFile().getName();
+			this.directoryLocation = this.currentFile.getParentFile().getPath();
+			setConfig();
+
+		} else {
+			this.fileName = currentFile.getName();
+			int indexForSub = fileName.indexOf('.');
+			this.fileExtension = fileName.substring(indexForSub + 1);
+			this.fileLocation = currentFile.getPath();
+			this.directoryName = currentFile.getParentFile().getName();
+			this.directoryLocation = currentFile.getParentFile().getPath();
+			this.currentFile = currentFile;
+			setConfig();
+
+		}
 	}
 
 	public void setFileLocation(String fileLocation) {
@@ -200,43 +218,11 @@ public class Workspace {
 		this.fileGroup = fileGroup;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getDirectoryName() {
-		return directoryName;
-	}
-
-	public String getDirectoryLocation() {
-		return directoryLocation;
-	}
-
-	public void setFileExtension(String fileExtension) {
-		this.fileExtension = fileExtension;
-	}
-
-	public Map<String, String> getPropertyMap() {
-		return propertyMap;
-	}
-
-	public void setPropertyMap(Map<String, String> propertyMap) {
-		this.propertyMap = propertyMap;
-	}
-
-	public String[] getProjectFileList() {
-		return projectFileList;
-	}
-
-	public void setProjectFileList(String[] projectFileList) {
-		this.projectFileList = projectFileList;
+	public void setCurrentDirectory(File currentDirectory) {
+		this.currentDirectory = currentDirectory;
 	}
 
 	public File getCurrentDirectory() {
 		return currentDirectory;
-	}
-
-	public void setCurrentDirectory(File currentDirectory) {
-		this.currentDirectory = currentDirectory;
 	}
 }

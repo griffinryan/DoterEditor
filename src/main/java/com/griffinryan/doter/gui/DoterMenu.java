@@ -131,17 +131,19 @@ public class DoterMenu extends EditorTool {
 	}
 
 	public void createFileGroup(){
-		Workspace result = this.workspace;
-		result.setDirectoryName(workspace.getFileName());
-		File[] tempArray = result.getCurrentFile().listFiles();
-		result.setFileGroup(tempArray);
-		result.setCurrentFile(result.getFileGroup()[0]);
+		//Workspace result = this.workspace;
+		//result.setDirectoryName(workspace.getFileName());
+		//File[] tempArray = result.getCurrentFile().listFiles();
 
-		File temp = result.getCurrentFile();
-		result.setFileLocation(temp.getPath());
+		//result.setFileGroup(tempArray);
+		//result.setCurrentDirectory(result.getCurrentFile());
+		//result.setCurrentFile(result.getFileGroup()[0]);
 
+		//File temp = result.getCurrentFile();
+		//result.setFileLocation(temp.getPath());
+		//result.set
 
-		this.workspace = result;
+		//this.workspace = result;
 	}
 
 
