@@ -57,12 +57,15 @@ public class DoterApplication extends Application {
 		iv.fitWidthProperty();
 		explorerPane.getChildren().add(iv);
 
+		/*
+		* TODO: Get the file explorer working properly.
+		*  */
 		TextField[] myFiles = new TextField[appMenu.getWorkspace().getFileGroup().length];
 
 		for(int j = 0; j < myFiles.length; j++){
 			File temp = appMenu.getWorkspace().getFileGroup()[j];
 			String s = temp.getName();
-			myFiles[j] = 
+			myFiles[j] = new TextField(s);
 		}
 
 		for (TextField myFile : myFiles) {
