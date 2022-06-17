@@ -47,12 +47,19 @@ public class Workspace {
 			propertyMap.put("fileLocation", jsonFile.getString("fileLocation"));
 			propertyMap.put("directoryLocation", jsonFile.getString("directoryLocation"));
 			propertyMap.put("fileExtension", jsonFile.getString("fileExtension"));
+			propertyMap.put("currentDirectory", jsonFile.getString("currentDirectory"));
 			this.fileName = propertyMap.get("fileName");
 			this.fileLocation = propertyMap.get("fileLocation");
 			this.directoryName = propertyMap.get("directoryName");
 			this.directoryLocation = propertyMap.get("directoryLocation");
 			this.fileExtension = propertyMap.get("fileExtension");
 			this.currentFile = new File(this.fileName);
+			this.currentDirectory = new File(propertyMap.get("currentDirectory"));
+
+			if(currentDirectory.exists()){
+				File[] temp = currentDirectory.listFiles();
+				this.fileGroup = temp;
+			}
 		}
 
 	}

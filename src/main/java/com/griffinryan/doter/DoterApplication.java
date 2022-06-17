@@ -49,19 +49,25 @@ public class DoterApplication extends Application {
 		editorPane.getItems().addAll(appMenu.getEditor().getMonaco());
 
 		Image i = new Image("logo_small.png");
+		Image icojava = new Image("ico_java.png");
+		ImageView icons = new ImageView(icojava);
+
 		ImageView iv = new ImageView(i);
 		iv.fitHeightProperty();
 		iv.fitWidthProperty();
 		explorerPane.getChildren().add(iv);
 
-		MenuItem[] myFiles = new MenuItem[appMenu.getWorkspace().getFileGroup().length];
+		TextField[] myFiles = new TextField[appMenu.getWorkspace().getFileGroup().length];
 
 		for(int j = 0; j < myFiles.length; j++){
 			File temp = appMenu.getWorkspace().getFileGroup()[j];
 			String s = temp.getName();
-			myFiles[j] = new MenuItem(s, );
+			myFiles[j] = 
 		}
-		VBox v = new VBox();
+
+		for (TextField myFile : myFiles) {
+			explorerPane.getChildren().add(myFile);
+		}
 
 		Color paint = ghost5();
 		BackgroundFill bf = new BackgroundFill(paint,null,null);
