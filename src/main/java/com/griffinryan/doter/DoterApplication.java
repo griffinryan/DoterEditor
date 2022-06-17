@@ -12,6 +12,8 @@ import javafx.scene.paint.*;
 import javafx.stage.Stage;
 import javafx.geometry.Side;
 
+import java.io.File;
+
 public class DoterApplication extends Application {
 
 	private static final int INITIAL_WIDTH = 850;
@@ -51,6 +53,15 @@ public class DoterApplication extends Application {
 		iv.fitHeightProperty();
 		iv.fitWidthProperty();
 		explorerPane.getChildren().add(iv);
+
+		MenuItem[] myFiles = new MenuItem[appMenu.getWorkspace().getFileGroup().length];
+
+		for(int j = 0; j < myFiles.length; j++){
+			File temp = appMenu.getWorkspace().getFileGroup()[j];
+			String s = temp.getName();
+			myFiles[j] = new MenuItem(s, );
+		}
+		VBox v = new VBox();
 
 		Color paint = ghost5();
 		BackgroundFill bf = new BackgroundFill(paint,null,null);
