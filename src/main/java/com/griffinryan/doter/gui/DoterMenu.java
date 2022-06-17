@@ -100,8 +100,9 @@ public class DoterMenu extends EditorTool {
 				file = directoryChooser.showDialog(stage);
 
 				this.workspace.setCurrentFile(file);
-				String directory = saveFileToString(file);
-				setEditorDocument(directory);
+				File toParse = this.workspace.getCurrentFile();
+				String document = saveFileToString(toParse);
+				setEditorDocument(document);
 			}
 			case "New Project" -> {
 				directoryChooser.setTitle("Create New Project...");
@@ -119,33 +120,9 @@ public class DoterMenu extends EditorTool {
 	}
 
 	public void setEditorDocument(String document){
-
-		if(this.workspace.getCurrentFile().isDirectory()){
-			createFileGroup();
-
-		} else {
-			this.editor.getMonaco().getEditor().setCurrentLanguage(workspace.getFileExtension());
-			this.editor.getMonaco().getEditor().getDocument().setText(document);
-		}
-
+		this.editor.getMonaco().getEditor().setCurrentLanguage(workspace.getFileExtension());
+		this.editor.getMonaco().getEditor().getDocument().setText(document);
 	}
-
-	public void createFileGroup(){
-		//Workspace result = this.workspace;
-		//result.setDirectoryName(workspace.getFileName());
-		//File[] tempArray = result.getCurrentFile().listFiles();
-
-		//result.setFileGroup(tempArray);
-		//result.setCurrentDirectory(result.getCurrentFile());
-		//result.setCurrentFile(result.getFileGroup()[0]);
-
-		//File temp = result.getCurrentFile();
-		//result.setFileLocation(temp.getPath());
-		//result.set
-
-		//this.workspace = result;
-	}
-
 
 	public String parseDocument(CodeEditor editor){
 		return editor.getMonaco().getEditor().getDocument().getText();
