@@ -23,6 +23,8 @@ public class Workspace {
 	private String fileExtension;
 	private Map<String, String> propertyMap;
 	private String[] projectFileList;
+	private File[] fileGroup;
+	private File currentDirectory;
 
 	private JSONObject jsonFile;
 	private boolean hasRecent;
@@ -186,5 +188,55 @@ public class Workspace {
 		return fileName;
 	}
 
+	public File getCurrentFile() {
+		return currentFile;
+	}
 
+	public File[] getFileGroup() {
+		return fileGroup;
+	}
+
+	public void setFileGroup(File[] fileGroup) {
+		this.fileGroup = fileGroup;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getDirectoryName() {
+		return directoryName;
+	}
+
+	public String getDirectoryLocation() {
+		return directoryLocation;
+	}
+
+	public void setFileExtension(String fileExtension) {
+		this.fileExtension = fileExtension;
+	}
+
+	public Map<String, String> getPropertyMap() {
+		return propertyMap;
+	}
+
+	public void setPropertyMap(Map<String, String> propertyMap) {
+		this.propertyMap = propertyMap;
+	}
+
+	public String[] getProjectFileList() {
+		return projectFileList;
+	}
+
+	public void setProjectFileList(String[] projectFileList) {
+		this.projectFileList = projectFileList;
+	}
+
+	public File getCurrentDirectory() {
+		return currentDirectory;
+	}
+
+	public void setCurrentDirectory(File currentDirectory) {
+		this.currentDirectory = currentDirectory;
+	}
 }

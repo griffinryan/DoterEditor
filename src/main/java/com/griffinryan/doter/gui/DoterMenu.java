@@ -98,7 +98,10 @@ public class DoterMenu extends EditorTool {
 			case "Open Project" -> {
 				directoryChooser.setTitle("Open Project...");
 				file = directoryChooser.showDialog(stage);
-				setEditorDocument("");
+
+				this.workspace.setCurrentFile(file);
+				String directory = saveFileToString(file);
+				setEditorDocument(directory);
 			}
 			case "New Project" -> {
 				directoryChooser.setTitle("Create New Project...");
@@ -116,8 +119,29 @@ public class DoterMenu extends EditorTool {
 	}
 
 	public void setEditorDocument(String document){
-		this.editor.getMonaco().getEditor().setCurrentLanguage(workspace.getFileExtension());
-		this.editor.getMonaco().getEditor().getDocument().setText(document);
+
+		if(this.workspace.getCurrentFile().isDirectory()){
+			createFileGroup();
+
+		} else {
+			this.editor.getMonaco().getEditor().setCurrentLanguage(workspace.getFileExtension());
+			this.editor.getMonaco().getEditor().getDocument().setText(document);
+		}
+
+	}
+
+	public void createFileGroup(){
+		Workspace result = this.workspace;
+		result.setDirectoryName(workspace.getFileName());
+		File[] tempArray = result.getCurrentFile().listFiles();
+		result.setFileGroup(tempArray);
+		result.setCurrentFile(result.getFileGroup()[0]);
+
+		File temp = result.getCurrentFile();
+		result.setFileLocation(temp.getPath());
+
+
+		this.workspace = result;
 	}
 
 
