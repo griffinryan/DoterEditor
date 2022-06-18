@@ -22,6 +22,9 @@ public class Explorer extends EditorTool {
 
 	public Explorer(Workspace theWorkspace){
 
+		/* TODO: initialize List<Item> items with the
+		    File[] from theWorkspace.fileGroup[i].	*/
+
 		if(theWorkspace.isHasRecent() && theWorkspace.getCurrentDirectory().exists()){
 			// it has a directory to make an explorer of.
 			this.rootNode = new TreeItem<>("MyCompany Human Resources", rootIcon);
