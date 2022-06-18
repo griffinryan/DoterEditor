@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Explorer extends EditorTool {
 
-	private TreeView<String> finder;
+	private TreeView<String> treeView;
 	private List<Item> items;
 	private TreeItem<String> rootNode;
 
@@ -32,11 +32,11 @@ public class Explorer extends EditorTool {
 		}
 	}
 
-	public TreeView<String> getFinder() {
-		return finder;
+	public TreeView<String> getTreeView() {
+		return treeView;
 	}
 
-	public void setFinder(TreeView<String> finder) {
-		this.finder = finder;
+	public void setTreeView(TreeView<String> treeView) {
+		this.treeView = treeView;
 	}
 }
