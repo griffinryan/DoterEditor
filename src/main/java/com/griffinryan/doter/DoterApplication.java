@@ -3,6 +3,7 @@ package com.griffinryan.doter;
 import com.griffinryan.doter.editor.Workspace;
 import com.griffinryan.doter.gui.DoterMenu;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.geometry.Side;
 
 import java.io.File;
+import java.util.Objects;
 
 public class DoterApplication extends Application {
 
@@ -22,6 +24,11 @@ public class DoterApplication extends Application {
 	public static void main(String[] args) {
 		launch();
 	}
+
+	private final Node rootIcon = new ImageView(
+			new Image(Objects.requireNonNull(getClass().getResourceAsStream("ico_java.png")))
+	);
+
 
 	@Override
 	public void start(Stage primaryStage) throws RuntimeException {
@@ -60,6 +67,10 @@ public class DoterApplication extends Application {
 		/*
 		* TODO: Get the file explorer working properly.
 		*  */
+		TreeItem<String> rootItem = new TreeItem<>("Project", rootIcon);
+		rootItem.setExpanded(true);
+
+		/*
 		TextField[] myFiles = new TextField[appMenu.getWorkspace().getFileGroup().length];
 
 		for(int j = 0; j < myFiles.length; j++){
@@ -70,7 +81,7 @@ public class DoterApplication extends Application {
 
 		for (TextField myFile : myFiles) {
 			explorerPane.getChildren().add(myFile);
-		}
+		}	*/
 
 		Color paint = ghost5();
 		BackgroundFill bf = new BackgroundFill(paint,null,null);
