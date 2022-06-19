@@ -6,13 +6,13 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.List;
-import java.util.Objects;
+import java.io.File;
+import java.util.*;
 
 public class Explorer extends EditorTool {
 
 	private TreeView<String> treeView;
-	private List<Item> items;
+	private Map<Integer, Item> items;
 	private TreeItem<String> rootNode;
 
 	private final Node rootIcon =
@@ -24,6 +24,8 @@ public class Explorer extends EditorTool {
 
 		/* TODO: initialize List<Item> items with the
 		    File[] from theWorkspace.fileGroup[i].	*/
+		this.items = new HashMap<>(30);
+		File[] temp = theWorkspace.getFileGroup();
 
 		if(theWorkspace.isHasRecent() && theWorkspace.getCurrentDirectory().exists()){
 			// it has a directory to make an explorer of.
