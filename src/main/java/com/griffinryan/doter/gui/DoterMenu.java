@@ -2,6 +2,7 @@ package com.griffinryan.doter.gui;
 
 import com.griffinryan.doter.editor.CodeEditor;
 import com.griffinryan.doter.editor.EditorTool;
+import com.griffinryan.doter.editor.Explorer;
 import com.griffinryan.doter.editor.Workspace;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -34,11 +35,13 @@ public class DoterMenu extends EditorTool {
 
 	private Workspace workspace;
 	private CodeEditor editor;
+	private Explorer explorer;
 
 	public DoterMenu(Stage stage, Workspace workspace) {
 		this.fileChooser = new FileChooser();
 		this.setWorkspace(workspace);
-		this.editor = new CodeEditor(this.workspace);
+		this.editor = new CodeEditor(workspace);
+		this.explorer = new Explorer(workspace);
 
 		createMenuItems();
 
@@ -103,7 +106,6 @@ public class DoterMenu extends EditorTool {
 				File toParse = this.workspace.getCurrentFile();
 				String document = saveFileToString(toParse);
 				setEditorDocument(document);
-				// add here!!!!!!!!!!!!!!!!!!!
 			}
 			case "New Project" -> {
 				directoryChooser.setTitle("Create New Project...");
