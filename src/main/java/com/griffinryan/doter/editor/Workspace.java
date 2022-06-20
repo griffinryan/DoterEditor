@@ -158,11 +158,11 @@ public class Workspace {
 		return fileLocation;
 	}
 
-	public void setCurrentFile(File currentFile) {
+	public void setCurrentFile(File theCurrentFile) {
 
-		if(currentFile.isDirectory()){
+		if(theCurrentFile.exists() && theCurrentFile.isDirectory()){
 
-			this.setCurrentDirectory(currentFile);
+			this.setCurrentDirectory(theCurrentFile);
 			File[] files = this.currentDirectory.listFiles();
 			assert files != null;
 
@@ -177,13 +177,13 @@ public class Workspace {
 			setConfig();
 
 		} else {
-			this.fileName = currentFile.getName();
+			this.fileName = theCurrentFile.getName();
 			int indexForSub = fileName.indexOf('.');
 			this.fileExtension = fileName.substring(indexForSub + 1);
-			this.fileLocation = currentFile.getPath();
-			this.directoryName = currentFile.getParentFile().getName();
-			this.directoryLocation = currentFile.getParentFile().getPath();
-			this.currentFile = currentFile;
+			this.fileLocation = theCurrentFile.getPath();
+			this.directoryName = theCurrentFile.getParentFile().getName();
+			this.directoryLocation = theCurrentFile.getParentFile().getPath();
+			this.currentFile = theCurrentFile;
 			setConfig();
 
 		}

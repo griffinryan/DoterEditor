@@ -9,6 +9,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -32,6 +33,8 @@ public class DoterMenu extends EditorTool {
 
 	private HBox[] explorerDirs;
 	private HBox[] explorerFiles;
+
+	private VBox box;
 
 	private Workspace workspace;
 	private CodeEditor editor;
@@ -59,12 +62,13 @@ public class DoterMenu extends EditorTool {
 		menuBar.getMenus().addAll(fileMenu, editMenu);
 
 		// set up GUI here!!!!!!!!!!!!!!
+		
 	}
 
 	public void openWindow(String type, Stage stage) {
 		this.fileChooser = new FileChooser();
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		File file = null;
+		File file = workspace.getCurrentFile();
 
 		switch (type) {
 			case "Open Settings" -> System.out.println("Haha, there are no settings!");
@@ -95,10 +99,9 @@ public class DoterMenu extends EditorTool {
 				this.fileChooser.setInitialFileName(workspace.getFileExtension());
 				this.fileChooser.setTitle("Save..."); // set operation title.
 
-				String filePath = this.workspace.getFileLocation();
-				file = new File(filePath);
+				File toSave = workspace.getCurrentFile();
 				String parsed = parseDocument(this.editor);
-				saveStringToFile(parsed, file);
+				saveStringToFile(parsed, toSave);
 			}
 			case "Open Project" -> {
 				directoryChooser.setTitle("Open Project...");
@@ -116,12 +119,7 @@ public class DoterMenu extends EditorTool {
 				setEditorDocument("");
 			}
 		}
-		assert file != null;
 
-		this.workspace.setCurrentFile(file);
-		this.workspace.setDirectoryName(file.getParent());
-		this.workspace.setDirectoryLocation(file.getAbsolutePath());
-		this.workspace.setFileLocation(file.getPath());
 	}
 
 	public void setEditorDocument(String document){
