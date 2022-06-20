@@ -2,14 +2,21 @@ package com.griffinryan.doter.editor;
 
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.File;
+
 public class Item {
 
 	private SimpleStringProperty name;
 	private SimpleStringProperty folder;
+	private File currentFile;
+	private File currentDirectory;
 
-	public Item(String name, String folder){
-		this.name = new SimpleStringProperty(name);
-		this.folder = new SimpleStringProperty(folder);
+	public Item(File theCurrentFile, File theCurrentDirectory){
+		this.currentFile = theCurrentFile;
+		this.currentDirectory = theCurrentDirectory;
+
+		this.name = new SimpleStringProperty(currentFile.getName());
+		this.folder = new SimpleStringProperty(currentDirectory.getName());
 	}
 
 	public String getName() {
@@ -26,5 +33,21 @@ public class Item {
 
 	public void setFolder(String folder) {
 		this.folder.set(folder);
+	}
+
+	public File getCurrentFile() {
+		return currentFile;
+	}
+
+	public void setCurrentFile(File currentFile) {
+		this.currentFile = currentFile;
+	}
+
+	public File getCurrentDirectory() {
+		return currentDirectory;
+	}
+
+	public void setCurrentDirectory(File currentDirectory) {
+		this.currentDirectory = currentDirectory;
 	}
 }

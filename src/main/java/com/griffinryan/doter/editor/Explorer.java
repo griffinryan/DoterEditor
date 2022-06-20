@@ -12,7 +12,7 @@ import java.util.*;
 public class Explorer extends EditorTool {
 
 	private TreeView<String> treeView;
-	private Map<Integer, Item> items;
+	private List<Item> items;
 	private TreeItem<String> rootNode;
 
 	private final Node rootIcon =
@@ -22,21 +22,40 @@ public class Explorer extends EditorTool {
 
 	public Explorer(Workspace theWorkspace){
 
-		/* TODO: initialize List<Item> items with the
-		    File[] from theWorkspace.fileGroup[i].	*/
-		this.items = new HashMap<>(30);
-		File[] tempFiles = theWorkspace.getFileGroup();
+		/* Instantiate the List<Item> items to keep a list
+		*  of all the user Doter-workspace files/folders.		*/
+		this.items = new ArrayList<>(theWorkspace.getFileGroup().length);
 
-		for(int i = 0; i < tempFiles.length; i++){
-
-			this.items.put(i, )
+		for(int i = 0; i < theWorkspace.getFileGroup().length; i++){
+			this.items.add(new Item(theWorkspace.getFileGroup()[i], theWorkspace.getCurrentDirectory()));
 		}
+
+		this.rootNode = new TreeItem<>("MyCompany Human Resources", rootIcon);
+
+		for(Item item : items){
+			TreeItem<String> itemLeaf = new TreeItem<>(item.getName());
+			boolean found = false;
+			for (TreeItem<String> depNode : rootNode.getChildren()) {
+				if (depNode.getValue().contentEquals(item.getFolder())){
+					depNode.getChildren().add(itemLeaf);
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				TreeItem<String> depNode = new TreeItem<String>(
+						item.getFolder(),
+						new ImageView(folderIcon)
+				);
+				rootNode.getChildren().add(depNode);
+				depNode.getChildren().add(itemLeaf);
+			}
+		}
+
+		this.treeView = new TreeView<>(rootNode);
 
 		if(theWorkspace.isHasRecent() && theWorkspace.getCurrentDirectory().exists()){
 			// it has a directory to make an explorer of.
-			this.rootNode = new TreeItem<>("MyCompany Human Resources", rootIcon);
-
-
 		} else {
 			// it does not have a directory. maybe show a button to open one.
 		}
