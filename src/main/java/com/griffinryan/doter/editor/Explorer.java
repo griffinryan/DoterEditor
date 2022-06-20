@@ -59,7 +59,7 @@ public class Explorer extends EditorTool {
 
 		this.treeView = new TreeView<>(rootNode);
 		treeView.setBackground(bg);
-		
+
 		if(theWorkspace.isHasRecent() && theWorkspace.getCurrentDirectory().exists()){
 			// it has a directory to make an explorer of.
 		} else {
