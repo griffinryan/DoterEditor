@@ -65,9 +65,8 @@ public class DoterMenu extends EditorTool {
 		menuBar.getMenus().addAll(fileMenu, editMenu);
 
 		// set up GUI here!!!!!!!!!!!!!!
-		Background bg = new Background(new BackgroundFill((new Color(0.1176, 0.1176, 0.1176, 1.0)), null,null));
 		box = new VBox(explorer.getTreeView());
-		box.setBackground(bg);
+
 	}
 
 	public void openWindow(String type, Stage stage) {

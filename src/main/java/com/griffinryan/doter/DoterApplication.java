@@ -63,6 +63,14 @@ public class DoterApplication extends Application {
 		//explorerPane.getChildren().add(box);
 
 		explorerPane.getChildren().add(appMenu.getBox());
+		explorerPane.setStyle(
+				"""
+						-fx-base: #1e1e1e ;
+						-fx-control-inner-background: derive(-fx-base,0%);
+						-fx-control-inner-background-alt: derive(-fx-control-inner-background,100%);
+						-fx-accent: #964369;
+						-fx-focus-color: #964369;
+						-fx-faint-focus-color: #036E8322;""".indent(2));
 
 		/*
 		TextField[] myFiles = new TextField[appMenu.getWorkspace().getFileGroup().length];
