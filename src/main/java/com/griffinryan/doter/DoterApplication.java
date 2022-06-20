@@ -25,11 +25,6 @@ public class DoterApplication extends Application {
 		launch();
 	}
 
-	private final Node rootIcon = new ImageView(
-			new Image(Objects.requireNonNull(getClass().getResourceAsStream("ico_java.png")))
-	);
-
-
 	@Override
 	public void start(Stage primaryStage) throws RuntimeException {
 
@@ -63,12 +58,6 @@ public class DoterApplication extends Application {
 		iv.fitHeightProperty();
 		iv.fitWidthProperty();
 		explorerPane.getChildren().add(iv);
-
-		/*
-		* TODO: Get the file explorer working properly.
-		*  */
-		TreeItem<String> rootItem = new TreeItem<>("Project", rootIcon);
-		rootItem.setExpanded(true);
 
 		/*
 		TextField[] myFiles = new TextField[appMenu.getWorkspace().getFileGroup().length];

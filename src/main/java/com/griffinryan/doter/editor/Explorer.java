@@ -16,9 +16,9 @@ public class Explorer extends EditorTool {
 	private TreeItem<String> rootNode;
 
 	private final Node rootIcon =
-			new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("small.png"))));
+			new ImageView(new Image("small.png"));
 	private final Image folderIcon =
-			new Image(Objects.requireNonNull(getClass().getResourceAsStream("folder.png")));
+			new Image("folder.png");
 
 	public Explorer(Workspace theWorkspace){
 
