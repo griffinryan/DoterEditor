@@ -25,7 +25,12 @@ public class Explorer extends EditorTool {
 		/* TODO: initialize List<Item> items with the
 		    File[] from theWorkspace.fileGroup[i].	*/
 		this.items = new HashMap<>(30);
-		File[] temp = theWorkspace.getFileGroup();
+		File[] tempFiles = theWorkspace.getFileGroup();
+
+		for(int i = 0; i < tempFiles.length; i++){
+
+			this.items.put(i, )
+		}
 
 		if(theWorkspace.isHasRecent() && theWorkspace.getCurrentDirectory().exists()){
 			// it has a directory to make an explorer of.
