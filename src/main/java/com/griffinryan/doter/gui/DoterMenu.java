@@ -103,6 +103,7 @@ public class DoterMenu extends EditorTool {
 				File toParse = this.workspace.getCurrentFile();
 				String document = saveFileToString(toParse);
 				setEditorDocument(document);
+				// add here!!!!!!!!!!!!!!!!!!!
 			}
 			case "New Project" -> {
 				directoryChooser.setTitle("Create New Project...");
@@ -116,7 +117,6 @@ public class DoterMenu extends EditorTool {
 		this.workspace.setDirectoryName(file.getParent());
 		this.workspace.setDirectoryLocation(file.getAbsolutePath());
 		this.workspace.setFileLocation(file.getPath());
-
 	}
 
 	public void setEditorDocument(String document){
