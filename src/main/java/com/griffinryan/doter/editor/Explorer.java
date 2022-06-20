@@ -5,6 +5,9 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.util.*;
@@ -14,6 +17,7 @@ public class Explorer extends EditorTool {
 	private TreeView<String> treeView;
 	private List<Item> items;
 	private TreeItem<String> rootNode;
+	private Background bg;
 
 	private final Node rootIcon =
 			new ImageView(new Image("small.png"));
@@ -21,6 +25,7 @@ public class Explorer extends EditorTool {
 			new Image("folder.png");
 
 	public Explorer(Workspace theWorkspace){
+		this.bg = new Background(new BackgroundFill((new Color(0.1176, 0.1176, 0.1176, 1.0)), null,null));
 
 		/* Instantiate the List<Item> items to keep a list
 		*  of all the user Doter-workspace files/folders.		*/
@@ -33,7 +38,7 @@ public class Explorer extends EditorTool {
 		this.rootNode = new TreeItem<>("Doter Project", rootIcon);
 
 		for(Item item : items){
-			TreeItem<String> itemLeaf = new TreeItem<>(item.getName());
+			TreeItem<String> itemLeaf = new TreeItem<>(item.getCurrentFile().getName());
 			boolean found = false;
 			for (TreeItem<String> depNode : rootNode.getChildren()) {
 				if (depNode.getValue().contentEquals(item.getFolder())){
@@ -53,7 +58,8 @@ public class Explorer extends EditorTool {
 		}
 
 		this.treeView = new TreeView<>(rootNode);
-
+		treeView.setBackground(bg);
+		
 		if(theWorkspace.isHasRecent() && theWorkspace.getCurrentDirectory().exists()){
 			// it has a directory to make an explorer of.
 		} else {

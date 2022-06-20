@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Workspace {
 
@@ -48,18 +45,17 @@ public class Workspace {
 			propertyMap.put("directoryLocation", jsonFile.getString("directoryLocation"));
 			propertyMap.put("fileExtension", jsonFile.getString("fileExtension"));
 			propertyMap.put("currentDirectory", jsonFile.getString("currentDirectory"));
+
 			this.fileName = propertyMap.get("fileName");
 			this.fileLocation = propertyMap.get("fileLocation");
 			this.directoryName = propertyMap.get("directoryName");
 			this.directoryLocation = propertyMap.get("directoryLocation");
 			this.fileExtension = propertyMap.get("fileExtension");
 			this.currentFile = new File(this.fileName);
-			this.currentDirectory = new File(propertyMap.get("currentDirectory"));
+			this.currentDirectory = new File(propertyMap.get("directoryLocation"));
 
-			if(currentDirectory.exists()){
-				File[] temp = currentDirectory.listFiles();
-				this.fileGroup = temp;
-			}
+			this.fileGroup = currentDirectory.listFiles();
+			propertyMap.put("fileGroup", Arrays.toString(fileGroup));
 		}
 
 	}
@@ -71,6 +67,8 @@ public class Workspace {
 		propertyMap.put("directoryLocation", this.directoryLocation);
 		propertyMap.put("fileExtension", this.fileExtension);
 		propertyMap.put("currentDirectory", this.currentDirectory.getName());
+		String s = Arrays.toString(fileGroup);
+		propertyMap.put("fileGroup", s);
 
 		this.jsonFile = new JSONObject(this.propertyMap);
 
@@ -104,6 +102,7 @@ public class Workspace {
 		propertyMap.put("directoryLocation", "empty");
 		propertyMap.put("fileExtension", "empty");
 		propertyMap.put("currentDirectory", "empty");
+		propertyMap.put("fileGroup", "empty");
 		this.jsonFile = new JSONObject(propertyMap);
 
 		String home = System.getProperty("user.home");

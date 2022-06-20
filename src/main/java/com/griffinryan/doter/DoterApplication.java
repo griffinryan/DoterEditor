@@ -61,6 +61,9 @@ public class DoterApplication extends Application {
 		//explorerPane.getChildren().add(appMenu.getExplorer().getTreeView());
 		//VBox box = new VBox();
 		//explorerPane.getChildren().add(box);
+
+		explorerPane.getChildren().add(appMenu.getBox());
+
 		/*
 		TextField[] myFiles = new TextField[appMenu.getWorkspace().getFileGroup().length];
 

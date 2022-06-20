@@ -8,8 +8,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -44,7 +47,7 @@ public class DoterMenu extends EditorTool {
 		this.fileChooser = new FileChooser();
 		this.setWorkspace(workspace);
 		this.editor = new CodeEditor(workspace);
-		//this.explorer = new Explorer(workspace);
+		this.explorer = new Explorer(workspace);
 
 		createMenuItems();
 
@@ -62,7 +65,9 @@ public class DoterMenu extends EditorTool {
 		menuBar.getMenus().addAll(fileMenu, editMenu);
 
 		// set up GUI here!!!!!!!!!!!!!!
-		
+		Background bg = new Background(new BackgroundFill((new Color(0.1176, 0.1176, 0.1176, 1.0)), null,null));
+		box = new VBox(explorer.getTreeView());
+		box.setBackground(bg);
 	}
 
 	public void openWindow(String type, Stage stage) {
@@ -184,5 +189,13 @@ public class DoterMenu extends EditorTool {
 
 	public void setExplorer(Explorer explorer) {
 		this.explorer = explorer;
+	}
+
+	public VBox getBox() {
+		return box;
+	}
+
+	public void setBox(VBox box) {
+		this.box = box;
 	}
 }
