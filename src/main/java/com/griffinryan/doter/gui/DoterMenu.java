@@ -41,7 +41,7 @@ public class DoterMenu extends EditorTool {
 		this.fileChooser = new FileChooser();
 		this.setWorkspace(workspace);
 		this.editor = new CodeEditor(workspace);
-		this.explorer = new Explorer(workspace);
+		//this.explorer = new Explorer(workspace);
 
 		createMenuItems();
 
@@ -57,6 +57,8 @@ public class DoterMenu extends EditorTool {
 		menuBar = new MenuBar();
 		menuBar.setUseSystemMenuBar(true);
 		menuBar.getMenus().addAll(fileMenu, editMenu);
+
+		// set up GUI here!!!!!!!!!!!!!!
 	}
 
 	public void openWindow(String type, Stage stage) {
@@ -106,6 +108,7 @@ public class DoterMenu extends EditorTool {
 				File toParse = this.workspace.getCurrentFile();
 				String document = saveFileToString(toParse);
 				setEditorDocument(document);
+				this.explorer = new Explorer(workspace);
 			}
 			case "New Project" -> {
 				directoryChooser.setTitle("Create New Project...");
@@ -175,5 +178,13 @@ public class DoterMenu extends EditorTool {
 
 	public Workspace getWorkspace() {
 		return workspace;
+	}
+
+	public Explorer getExplorer() {
+		return explorer;
+	}
+
+	public void setExplorer(Explorer explorer) {
+		this.explorer = explorer;
 	}
 }

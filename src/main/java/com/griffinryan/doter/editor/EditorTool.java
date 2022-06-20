@@ -40,11 +40,17 @@ public class EditorTool{
 	public String saveFileToString(File file){
 		String result = "";
 		Path filePath = file.toPath();
-		try {
-			result = Files.readString(filePath);
-		} catch (IOException e) {
-			e.printStackTrace();
+
+		if(file.isFile()){
+			try {
+				result = Files.readString(filePath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			result = "// Doter Editor - Griffin Ryan (2022)";
 		}
+
 		return result;
 	}
 

@@ -30,7 +30,7 @@ public class Explorer extends EditorTool {
 			this.items.add(new Item(theWorkspace.getFileGroup()[i], theWorkspace.getCurrentDirectory()));
 		}
 
-		this.rootNode = new TreeItem<>("MyCompany Human Resources", rootIcon);
+		this.rootNode = new TreeItem<>("Doter Project", rootIcon);
 
 		for(Item item : items){
 			TreeItem<String> itemLeaf = new TreeItem<>(item.getName());

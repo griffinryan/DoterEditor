@@ -58,7 +58,9 @@ public class DoterApplication extends Application {
 		iv.fitHeightProperty();
 		iv.fitWidthProperty();
 		explorerPane.getChildren().add(iv);
-
+		//explorerPane.getChildren().add(appMenu.getExplorer().getTreeView());
+		//VBox box = new VBox();
+		//explorerPane.getChildren().add(box);
 		/*
 		TextField[] myFiles = new TextField[appMenu.getWorkspace().getFileGroup().length];
 
