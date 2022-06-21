@@ -4,6 +4,14 @@
 
 **_Doter: "Dreams of Text Editors Running"_**
 
+### Overview
+
+- Doter Editor is a alpha-build of a soon-to-be full-featured IDE.
+
+- Doter current supports code editing of C#, C++, C, Python, Java, Ruby, HTML, CSS, Javascript, Markdown, and much more.
+
+- Doter Editor is built with [Monaco](https://github.com/microsoft/monaco-editor), the powerful text editor from Microsoft's [VSCode](https://github.com/microsoft/vscode).
+
 ----
 
 [![GitHub issues by-label](https://img.shields.io/github/issues/griffinryan/doter/help%20wanted?label=issues%20need%20help&logo=github)](https://github.com/griffinryan/doter/issues?q=label%3A%22help+wanted%22+is%3Aopen+is%3Aissue)
