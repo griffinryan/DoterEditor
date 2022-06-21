@@ -7,6 +7,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 
 import java.io.File;
 
@@ -68,7 +69,7 @@ public class SimpleFileTreeItem extends TreeItem<File> {
 	private ObservableList<TreeItem<File>> buildChildren(TreeItem<File> TreeItem) {
 		File tempF = TreeItem.getValue();
 
-		/* Add icons to the File Tree items here! */
+
 		if(tempF.isFile()){
 			TreeItem.setGraphic(rootIcon);
 			TreeItem.setExpanded(true);
