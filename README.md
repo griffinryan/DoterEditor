@@ -10,7 +10,7 @@
 
 - Doter current supports code editing of C#, C++, C, Python, Java, Ruby, HTML, CSS, Javascript, Markdown, and much more.
 
-- Doter Editor is built with [Monaco](https://github.com/microsoft/monaco-editor), the powerful text editor from Microsoft's [VSCode](https://github.com/microsoft/vscode).
+- Doter Editor is based off [Monaco](https://github.com/microsoft/monaco-editor), the powerful text editor from Microsoft's [VSCode](https://github.com/microsoft/vscode).
 
 ----
 
