@@ -1,4 +1,4 @@
-# doter
+# Doter IDE and Code Editor
 
 ![doteralpha.png](https://torpoisebucket.s3.us-west-2.amazonaws.com/doteralpha.png)
 
