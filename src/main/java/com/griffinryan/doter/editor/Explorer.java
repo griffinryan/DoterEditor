@@ -14,21 +14,28 @@ import java.util.*;
 
 public class Explorer extends EditorTool {
 
-	private TreeView<String> treeView;
-	private List<Item> items;
-	private TreeItem<String> rootNode;
-	private Background bg;
+	private TreeView<File> fileView;
+	private TreeItem<File> rootNode;
 
 	private final Node rootIcon =
 			new ImageView(new Image("small.png"));
 	private final Image folderIcon =
 			new Image("folder.png");
 
-	public Explorer(Workspace theWorkspace){
-		this.bg = new Background(new BackgroundFill((new Color(0.1176, 0.1176, 0.1176, 1.0)), null,null));
+	public Explorer(Workspace workspace){
+		this.fileView = new TreeView<>(new SimpleFileTreeItem(workspace.getCurrentDirectory()));
+	}
 
-		/* Instantiate the List<Item> items to keep a list
-		*  of all the user Doter-workspace files/folders.		*/
+	public TreeView<File> getFileView() {
+		return fileView;
+	}
+
+	public void setFileView(TreeView<File> fileView) {
+		this.fileView = fileView;
+	}
+
+	/*
+	public Explorer(Workspace theWorkspace){
 		this.items = new ArrayList<>(theWorkspace.getFileGroup().length);
 
 		for(int i = 0; i < theWorkspace.getFileGroup().length; i++){
@@ -65,13 +72,6 @@ public class Explorer extends EditorTool {
 		} else {
 			// it does not have a directory. maybe show a button to open one.
 		}
-	}
+	}*/
 
-	public TreeView<String> getTreeView() {
-		return treeView;
-	}
-
-	public void setTreeView(TreeView<String> treeView) {
-		this.treeView = treeView;
-	}
 }

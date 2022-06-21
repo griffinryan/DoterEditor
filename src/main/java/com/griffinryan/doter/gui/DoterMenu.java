@@ -1,13 +1,7 @@
 package com.griffinryan.doter.gui;
 
-import com.griffinryan.doter.editor.CodeEditor;
-import com.griffinryan.doter.editor.EditorTool;
-import com.griffinryan.doter.editor.Explorer;
-import com.griffinryan.doter.editor.Workspace;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
+import com.griffinryan.doter.editor.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -65,8 +59,9 @@ public class DoterMenu extends EditorTool {
 		menuBar.getMenus().addAll(fileMenu, editMenu);
 
 		// set up GUI here!!!!!!!!!!!!!!
-		box = new VBox(explorer.getTreeView());
-
+		//box = new VBox(explorer.getTreeView());
+		box = new VBox();
+		box.getChildren().add(explorer.getFileView());
 	}
 
 	public void openWindow(String type, Stage stage) {
