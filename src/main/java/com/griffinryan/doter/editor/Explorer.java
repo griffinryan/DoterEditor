@@ -57,4 +57,8 @@ public class Explorer extends EditorTool {
 	public TreeView<File> getFileView() {
 		return fileView;
 	}
+
+	public void setFileView(TreeView<File> fileView) {
+		this.fileView = fileView;
+	}
 }
