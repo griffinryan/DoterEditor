@@ -3,7 +3,6 @@ package com.griffinryan.doter;
 import com.griffinryan.doter.editor.Workspace;
 import com.griffinryan.doter.gui.DoterMenu;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -11,10 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.Stage;
-import javafx.geometry.Side;
-
-import java.io.File;
-import java.util.Objects;
 
 public class DoterApplication extends Application {
 
