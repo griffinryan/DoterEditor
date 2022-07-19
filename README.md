@@ -1,4 +1,4 @@
-# Doter IDE and Code Editor
+# Doter IDE and Code Editor by Griffin Ryan
 
 ![doteralpha.png](https://torpoisebucket.s3.us-west-2.amazonaws.com/doteralpha.png)
 
