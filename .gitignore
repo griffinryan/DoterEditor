@@ -8,6 +8,7 @@ build
 build/*
 .idea
 .idea/*
+.xml
 # Ignore Gradle GUI config
 gradle-app.setting
 
