@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.griffinryan.doter</groupId>
+    <artifactId>doter-text-editor</artifactId>
+    <version>0.0.6</version>
+    <packaging>jar</packaging>
+
+    <name>Doter Text Editor by Griffin Ryan</name>
+    <description>A text editor</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <junit.version>5.8.2</junit.version>
+        <javafx.version>0.0.8</javafx.version>
+    </properties>
+
+    <dependencies>
+        <!-- Other dependencies -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.0</version>
+        </dependency>
+	<!-- ... add other dependencies similarly ... -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+        <!-- For MonacoFX -->
+        <dependency>
+            <groupId>eu.mihosoft.monacofx</groupId>
+            <artifactId>monacofx</artifactId>
+            <version>0.0.5</version> <!-- Use the appropriate version -->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- JavaFX Plugin -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.griffinryan.doter.DoterApplication</mainClass>
+                </configuration>
+            </plugin>
+            <!-- Maven Shade Plugin for fat jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version> <!-- Use the latest version -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.griffinryan.doter.DoterApplication</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <!-- ... add other repositories similarly ... -->
+    </repositories>
+
+</project>
+
