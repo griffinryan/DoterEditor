@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>11.2.0</version>
+            <version>11.1.0</version>
         </dependency>
 	<!-- ... add other dependencies similarly ... -->
         <dependency>
@@ -45,7 +45,22 @@
             <artifactId>monacofx</artifactId>
             <version>0.0.5</version> <!-- Use the appropriate version -->
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>21.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>21.0.1</version>
+        </dependency>
+        </dependencies>
 
     <build>
         <plugins>

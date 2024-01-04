@@ -6,7 +6,7 @@
 
 ### Overview
 
-- Doter Editor is a alpha-build of a full-featured IDE.
+- Doter Editor is a alpha-build of a full-featured IDE. Now building with JDK 21 LTS on all platforms.
 
 - Doter current supports code editing of C#, C++, C, Python, Java, Ruby, HTML, CSS, Javascript, Markdown, and much more.
 
@@ -35,11 +35,13 @@ ___
 
 > Clone the Doter Editor project.
 
-    git clone https://github.com/griffinryan/doter.git
-    cd doter/
+    git clone https://github.com/griffinryan/DoterEditor.git
+    cd DoterEditor/
 
-> Use [Gradle](https://github.com/gradle/gradle) to build the project.
+> Use [Maven](https://github.com/apache/maven) to build the project.
 
-    JAVA_HOME=/path/to/java16/ gradle build run
+    mvn clean install
+    mvn compile
+    mvn exec:java -Dexec.mainClass=com.griffinryan.doter.DoterApplication
 
 [griffinryan-github]: https://github.com/griffinryan/
