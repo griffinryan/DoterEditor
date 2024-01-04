@@ -43,7 +43,7 @@
         <dependency>
             <groupId>eu.mihosoft.monacofx</groupId>
             <artifactId>monacofx</artifactId>
-            <version>0.0.5</version> <!-- Use the appropriate version -->
+            <version>0.0.8</version> <!-- Use the appropriate version -->
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
