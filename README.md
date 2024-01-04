@@ -44,4 +44,20 @@ ___
     mvn compile
     mvn exec:java -Dexec.mainClass=com.griffinryan.doter.DoterApplication
 
+---
+
+## To-Do:
+
+> Add settings panel
+
+> Implement terminal emulation support
+
+> Add compiler/code-running functionalities based on current project language
+
+> Create a welcome splash screen for the end user's ease of access.
+
+> Track current problems in dedicated/individual user messages to eventually display in a pane dedicated to project errors, warnings, and output.
+
+> Add event listening for modified files that are not yet saved, along with traditional indicators to display to the user. Along with this, if a file is unsaved display a "quit confirmation" message before the user can quit the application.
+
 [griffinryan-github]: https://github.com/griffinryan/
