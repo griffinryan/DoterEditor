@@ -6,7 +6,7 @@
 
 ### Overview
 
-- Doter Editor is a alpha-build of a full-featured IDE. Now building with JDK 21 LTS on all platforms.
+- Doter Editor is a alpha-build of a full-featured code editor. Now building with JDK 21 LTS on all platforms.
 
 - Doter current supports code editing of C#, C++, C, Python, Java, Ruby, HTML, CSS, Javascript, Markdown, and much more.
 
